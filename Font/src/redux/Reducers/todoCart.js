@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   number: 0,
   cartItem: [],
+  
 };
 const todoSlice = createSlice({
   name: "todos",

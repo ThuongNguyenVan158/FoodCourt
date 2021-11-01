@@ -1,40 +1,11 @@
 import React from "react";
 import "./style.css";
 import Button from "@mui/material/Button";
-import img_01 from "../../../assets/01.png";
-import shape_01 from "../../../assets/shape-1.png";
-import shape_02 from "../../../assets/shape-2.png";
-export default function Order() {
+import img_01 from "../../assets/01.png";
+import TotalItemOrder from "../TotalItemOrder";
+export default function OrderItem() {
   return (
-    <div className="orderPage">
-      <section className="breadcrumb-area">
-        <div className="banner-bg-img"></div>
-        <div className="banner-shape-1">
-          <img src={shape_01} alt="img" />
-        </div>
-        <div className="banner-shape-2">
-          <img src={shape_02} alt="img" />
-        </div>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6 align-self-center">
-              <div className="banner-inner text-center">
-                <h3>Cart Page</h3>
-                <h1>Check your box</h1>
-                <div className="breadcrumb-mid">
-                  <ul className="breadcrumb">
-                    <li className="breadcrumb-item">
-                      <a href="home.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item active">Cart</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <div>
       <div className="cart-area pd-top-120 pd-bottom-120">
         <div className="container">
           <div className="row justify-content-center">
@@ -111,49 +82,7 @@ export default function Order() {
                 </table>
               </div>
             </div>
-            <div className="col-lg-8">
-              <div className="promotional-area">
-                <form className="default-form-wrap">
-                  <div className="row">
-                    <div className="col-md-4 col-sm-6">
-                      <div className="single-input-wrap">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Coupon Code"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-sm-6">
-                      <Button variant="contained">Apply Coupon</Button>
-                    </div>
-                    <div className="col-md-4 col-sm-6 text-md-end">
-                      <Button variant="outlined" color="error">
-                        Update
-                      </Button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="order-cart-area">
-                <div className="order-cart">
-                  <h5>Cart totals</h5>
-                  <ul>
-                    <li>
-                      Subtotal<span>$50.00</span>
-                    </li>
-                    <li className="total">
-                      Total<span>$50.00</span>
-                    </li>
-                  </ul>
-                </div>
-                <Button className=" btn-secondary w-100">
-                  PROCEED TO CHECKOUT
-                </Button>
-              </div>
-            </div>
+            <TotalItemOrder />
           </div>
         </div>
       </div>
