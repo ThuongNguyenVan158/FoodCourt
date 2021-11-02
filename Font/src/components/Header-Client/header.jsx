@@ -3,13 +3,9 @@
 import React from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-export default function Header() {
-=======
 import { useSelector } from "react-redux";
 export default function Header() {
   const number = useSelector((state) => state.todoCart.number);
->>>>>>> nhat
   return (
     <div>
       <header id="header">
@@ -88,13 +84,11 @@ export default function Header() {
                       data-toggle="dropdown"
                       aria-expanded="true"
                     >
-                      <i className="fa fa-shopping-cart" />
+                      <i className="fa fa-shopping-cart" />                      
                       <span>Your Cart</span>
-<<<<<<< HEAD
                       <div className="qty">3</div>
-=======
+
                       <div className="qty">{number}</div>
->>>>>>> nhat
                     </a>
                   </div>
                   {/* /Cart */}
