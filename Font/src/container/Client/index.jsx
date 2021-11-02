@@ -4,7 +4,6 @@ import Header from "../../components/Header-Client/header";
 import { Route } from "react-router-dom";
 function LayoutHome(props) {
   const path = props.children.props.path;
-  // const path = props.children.props.path;
   return (
     <>
       <Header />
