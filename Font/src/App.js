@@ -1,10 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 import logo from "./logo.svg";
-=======
->>>>>>> nhat
-=======
->>>>>>> a022d41766c16528cb2fca8dc82ef9889a35e14a
+
 import "./App.css";
 import { RouteHome } from "./routers";
 import { BrowserRouter, Switch } from "react-router-dom";
