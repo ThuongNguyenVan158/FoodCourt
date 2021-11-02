@@ -132,7 +132,6 @@ export const useStyles = makeStyles((theme) => ({
             fontWeight: '500',
             boxShadow: '0 10px 30px 0 #1976d250',
             borderRadius: '20px',
-            fontWeight: '500',
         }
     }
 }));

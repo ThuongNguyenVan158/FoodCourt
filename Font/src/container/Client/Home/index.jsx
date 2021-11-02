@@ -1,9 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-
-export default function HomePage() {
-  return <div>Home</div>;
-=======
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -81,5 +76,4 @@ export default function HomePage() {
       </Container>
     </div>
   );
->>>>>>> nhat
 }
