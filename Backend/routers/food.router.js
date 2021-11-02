@@ -1,6 +1,10 @@
 import express from "express";
 import {
   addFood,
+<<<<<<< HEAD
+=======
+  getDetailFood,
+>>>>>>> nhat
   getListFoodbyName,
   getListFoodByPriceASC,
   getListFoodByPriceDESC,
@@ -19,6 +23,10 @@ foodRouter.post(
   authorizeUser(["admin", "superAdmin"]),
   addFood
 );
+<<<<<<< HEAD
+=======
+foodRouter.get("/detail/:id", getDetailFood);
+>>>>>>> nhat
 foodRouter.get("/getListFoodbyName", getListFoodbyName);
 foodRouter.get("/getListFoodByType", getListFoodByType);
 foodRouter.get("/getListFoodByPriceASC", getListFoodByPriceASC);

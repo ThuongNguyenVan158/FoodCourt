@@ -7,10 +7,20 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery/dist/jquery.min.js";
 import "popper.js/dist/umd/popper.min.js";
+<<<<<<< HEAD
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+=======
+import { store } from "./redux";
+import { Provider } from "react-redux";
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+>>>>>>> nhat
   </React.StrictMode>,
   document.getElementById("root")
 );

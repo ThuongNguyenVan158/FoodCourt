@@ -1,0 +1,61 @@
+.cart-area {
+  background-color: #faf7f2;
+  padding-top: 50px;
+}
+.table {
+  background-color: #fff;
+  text-align: center;
+}
+.justify-content-center {
+  justify-content: center !important;
+}
+.cart-area .table thead {
+  background: #f6f1e7;
+  border: 0;
+}
+.table > tbody {
+  vertical-align: inherit;
+}
+
+.default-form-wrap .single-input-wrap {
+  border-radius: 6 px;
+  height: 54 px;
+  line-height: 54px;
+  margin-bottom: 30 px;
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.promotional-area .btn {
+  margin-top: 0;
+  border-radius: 6 px;
+  padding: 0 30 px;
+}
+.btn-secondary {
+  background-color: #fdc913 !important;
+  color: #292929 !important;
+}
+.qty {
+  margin: 10px 10px 10px 10px;
+  padding-top: 3px;
+  padding-bottom: 5px;
+}
+.order-cart-area {
+  background-color: #fff;
+  border-radius: 5px;
+}
+.order-cart-area .order-cart ul {
+  list-style: none;
+  margin-left: -10px;
+}
+.order-cart-area .order-cart ul li span {
+  margin-left: auto;
+  float: right;
+}
