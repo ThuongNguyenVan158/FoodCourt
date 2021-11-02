@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -52,7 +54,7 @@ export default function Header() {
               <div className="col-md-3">
                 <div className="header-logo">
                   <a href="#" className="logo">
-                    <img src="./img/logo.png" alt />
+                    <img src="./img/logo.png" alt/>
                   </a>
                 </div>
               </div>
