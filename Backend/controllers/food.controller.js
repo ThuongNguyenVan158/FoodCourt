@@ -17,6 +17,15 @@ const addFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const getDetailFood = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const food = await Food.findOne({ where: { id } });
+    res.status(200).send(food);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 const getListFoodbyName = async (req, res) => {
   const { name } = req.body;
   try {
@@ -111,4 +120,5 @@ export {
   updateFood,
   removeFood,
   uploadImgFood,
+  getDetailFood,
 };

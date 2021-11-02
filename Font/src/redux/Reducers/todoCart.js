@@ -2,12 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   number: 0,
   cartItem: [],
-  
+  listCart: [],
 };
-const todoSlice = createSlice({
+const todoCart = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    fetchCart: (state, action) => {
+      state.listCart = action.payload;
+    },
     addToCart: (state, action) => {
       const itemsIndex = state.cartItem.findIndex(
         (item) => item.id === action.payload.id
@@ -26,6 +29,6 @@ const todoSlice = createSlice({
   },
 });
 
-const { actions, reducer } = todoSlice;
-export const { addToCart, removeCart } = actions;
+const { actions, reducer } = todoCart;
+export const { addToCart, removeCart, fetchCart } = actions;
 export default reducer;
