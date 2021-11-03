@@ -3,10 +3,7 @@ import { Food } from "../models";
 const addFood = async (req, res) => {
   const { name, type, description, price } = req.body;
   const quantity_order = 0;
-<<<<<<< HEAD
-=======
   console.log(name, type, description, price, quantity_order);
->>>>>>> nhat
   try {
     const newFood = await Food.create({
       name,
@@ -20,8 +17,6 @@ const addFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
-<<<<<<< HEAD
-=======
 const getDetailFood = async (req, res) => {
   const { id } = req.params;
   try {
@@ -31,7 +26,6 @@ const getDetailFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
->>>>>>> nhat
 const getListFoodbyName = async (req, res) => {
   const { name } = req.body;
   try {
@@ -104,11 +98,7 @@ const removeFood = async (req, res) => {
 };
 const uploadImgFood = async (req, res) => {
   const { id } = req.params;
-<<<<<<< HEAD
-  const { file } = req;
-=======
   const file = req.file;
->>>>>>> nhat
   const url = `http://localhost:5000/${file.path}`;
   try {
     const img_path = await Food.findOne({
@@ -130,8 +120,5 @@ export {
   updateFood,
   removeFood,
   uploadImgFood,
-<<<<<<< HEAD
-=======
   getDetailFood,
->>>>>>> nhat
 };
