@@ -1,18 +1,10 @@
 {
   "development": {
-<<<<<<< HEAD
-    "username": "sql5444873",
-    "password": "pkq14xrnue",
-    "database": "sql5444873",
-    "host": "sql5.freesqldatabase.com",
-    "dialect": "mysql"
-=======
     "username": "thuong_158",
     "password": "thuong_158",
     "database": "FoodCourtManagement",
     "host": "FoodCourtManagement.mssql.somee.com",
     "dialect": "mssql"
->>>>>>> nhat
   },
   "test": {
     "username": "root",
