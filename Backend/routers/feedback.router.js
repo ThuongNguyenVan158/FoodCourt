@@ -1,7 +1,5 @@
 import express from "express";
-<<<<<<< HEAD
 const feedbackRouter = express.Router();
-=======
 import {
   addFeedback,
   deleteFeedback,
@@ -12,5 +10,4 @@ const feedbackRouter = express.Router();
 feedbackRouter.post("/add", authenticate, addFeedback);
 feedbackRouter.get("/:food_id", getAllFeedback);
 feedbackRouter.delete("/delete/:id", deleteFeedback);
->>>>>>> nhat
 export { feedbackRouter };
