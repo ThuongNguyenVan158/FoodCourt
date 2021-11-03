@@ -22,12 +22,8 @@
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.13",
     "rand-token": "^1.0.1",
-<<<<<<< HEAD
-    "sequelize": "^6.7.0"
-=======
     "sequelize": "^6.7.0",
     "tedious": "^14.0.0"
->>>>>>> nhat
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
