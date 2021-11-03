@@ -1,8 +1,7 @@
 import React from "react";
-import Tabs, { tabsClasses } from "@mui/material/Tabs";
+import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import ImageList from "@mui/material/ImageList";
 import Container from "@mui/material/Container";
 import Banner1 from "../../../assets/banner1.png";
 import FoodList from "../../../components/FoodList";
