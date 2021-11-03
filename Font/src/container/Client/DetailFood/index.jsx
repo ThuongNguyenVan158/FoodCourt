@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import img_01 from "../../../assets/3.png";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";

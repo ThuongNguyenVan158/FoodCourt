@@ -1,0 +1,109 @@
+#header {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 2px 0;
+  background-color: #fc9420;
+}
+
+.header-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.header-logo .logo img {
+  height: 60px;
+}
+
+.header__links{
+  width: 80%;
+}
+
+.header__link{
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+.header__link:hover{
+  color: black;
+}
+
+.header-search {
+  padding: 15px 0px;
+}
+
+.header-search form {
+  position: relative;
+}
+
+.header-search form input {
+  margin-right: -4px;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 40px;
+  width: 90%;
+}
+
+.header-search form button {
+  position: absolute;
+  top: 0;
+  left: 90%;
+  transform: translateX(-30px);
+
+  height: 40px;
+  background-color: #fc9420;
+  color: white;
+  border: 2px solid white;
+  border-radius: 0 10px 10px 0;
+}
+
+.header-ctn {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0px;
+}
+
+.header-ctn > div > .link {
+  display: block;
+  position: relative;
+  width: 100px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header-ctn > div > .link:hover{
+  color: black;
+}
+
+.header-ctn > div > .link > i {
+  display: block;
+  font-size: 18px;
+}
+
+.header-ctn > div > .link > span {
+  font-size: 14px;
+}
+
+.header-ctn > div > .link > .qty {
+  position: absolute;
+  right: 15px;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  background-color: red;
+}
+
+
