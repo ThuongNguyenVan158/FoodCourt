@@ -32,6 +32,22 @@ const todoCart = createSlice({
       state.number += 1;
       state.total += action.payload.price;
     },
+    decreaseCart: (state, action) => {
+      const itemsIndex = state.cartItem.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.cartItem[itemsIndex].cartQuantity -= 1;
+      state.number -= 1;
+      state.total -= state.cartItem[itemsIndex].price;
+      if (state.cartItem[itemsIndex].cartQuantity == 0) {
+        state.cartItem = state.cartItem.filter(
+          (item) => item.id != action.payload.id
+        );
+      } else {
+        state.cartItem[itemsIndex].totalPriceItem -=
+          state.cartItem[itemsIndex].price;
+      }
+    },
     removeCart(state, action) {
       state.number -= 1;
     },
@@ -39,5 +55,5 @@ const todoCart = createSlice({
 });
 
 const { actions, reducer } = todoCart;
-export const { addToCart, removeCart, fetchCart } = actions;
+export const { addToCart, removeCart, fetchCart, decreaseCart } = actions;
 export default reducer;
