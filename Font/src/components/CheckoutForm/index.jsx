@@ -1,19 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {PaymentMethod, Receiver} from './part'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { PaymentMethod, Receiver } from './part';
 
-function index(props) {
-    return (
-        <>
-            <Receiver />
-            <PaymentMethod />
-        </>
-    )
+function CheckoutForm(props) {
+  return (
+    <>
+      <Receiver />
+      <PaymentMethod />
+    </>
+  );
 }
 
-index.propTypes = {
+CheckoutForm.propTypes = {};
 
-}
-
-export default index
-
+export default CheckoutForm;

@@ -27,18 +27,19 @@
     }
 
     &__form-control {
+        padding-left: 5px;
         height: 50px;
         width: 80%;
         border: 2px solid #c0c0c0;
         border-radius: 10px;
         font-size: 16px;
-        background-color: rgb(250, 247, 242) !important;
+        background-color: transparent !important;
     }
 
     &__form-control:focus {
         color: #495057;
         background-color: #fff;
-        border-color: #fc9420;
+        border-color: #fcbf49;
         outline: 0;
         box-shadow: none;
     }

@@ -1,11 +1,12 @@
 .checkout {
-    padding-top: 100px;
+    padding: 100px 0;
     width: 100%;
     background-color: white;
 
     &__title {
         font-size: 28px;
         font-weight: 600;
+        margin-bottom: 50px;
 
         &__icon {
             margin-right: 5px;
