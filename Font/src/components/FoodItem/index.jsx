@@ -3,11 +3,17 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/Reducers/todoCart";
 export default function FoodItem(props) {
   const item = props.item;
   const linkToDetail = `detail/${item.id}`;
+  const dispatch = useDispatch();
+  const addtoCart = () => {
+    dispatch(addToCart(item));
+  };
   return (
-    <div className=" mb-5 col-5 ">
+    <div className=" mb-5 col-5   ">
       <div className="food-card bg-white rounded-lg overflow-hidden mb-4 shadow">
         <div className="food-card_img position-relative">
           <img src={item.food_img} alt="img" />
@@ -55,10 +61,11 @@ export default function FoodItem(props) {
               </div>
               <div className="food-card_order-count">
                 <Button
-                  sx={{ fontSize: 15 }}
+                  onClick={() => addtoCart()}
+                  sx={{ fontSize: 10 }}
                   style={{ width: 120 }}
-                  color="success"
-                  variant="outlined"
+                  color="warning"
+                  variant="contained"
                 >
                   Add To Cart
                 </Button>
