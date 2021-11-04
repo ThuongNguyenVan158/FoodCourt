@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import './HeaderClient.css';
+import "./HeaderClient.css";
 
 function HeaderClient() {
   const number = useSelector((state) => state.todoCart.number);
@@ -18,7 +18,7 @@ function HeaderClient() {
           <div className="row">
             <div className="col-md-2">
               <div className="header-logo">
-                <Link to='/' className="logo">
+                <Link to="/" className="logo">
                   <img
                     src="https://static.thenounproject.com/png/1680973-200.png"
                     alt
@@ -28,13 +28,13 @@ function HeaderClient() {
             </div>
             <div className="col-md-4 d-flex align-items-center px-0">
               <div className="header_links">
-                <Link to='/' className="header__link">
+                <Link to="/" className="header__link">
                   Trang chủ
                 </Link>
-                <Link to='/' className="header__link">
+                <Link to="/" className="header__link">
                   Menu
                 </Link>
-                <Link to='/' className="header__link">
+                <Link to="/" className="header__link">
                   Giới thiệu
                 </Link>
               </div>
@@ -64,11 +64,11 @@ function HeaderClient() {
                   </a>
                 </div>
                 <div>
-                  <a href="" className="link">
+                  <Link to="/order" className="link">
                     <i className="fa fa-shopping-cart" />
                     <span>Your Cart</span>
                     <div className="qty">{number}</div>
-                  </a>
+                  </Link>
                 </div>
                 <div>
                   <Link to="/login" className="link">

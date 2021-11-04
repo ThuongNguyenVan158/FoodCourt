@@ -9,8 +9,6 @@ const loginAdmin = async (req, res) => {
         email: email,
       },
     });
-
-
     //let isAuthenticated;
     // if (admin1.email == "Nhật@gmail.com" && admin1.password == "123456") {
     //   isAuthenticated = true;

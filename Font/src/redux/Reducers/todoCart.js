@@ -3,6 +3,7 @@ const initialState = {
   number: 0,
   cartItem: [],
   listCart: [],
+  total: 0,
 };
 const todoCart = createSlice({
   name: "todos",
@@ -17,11 +18,19 @@ const todoCart = createSlice({
       );
       if (itemsIndex >= 0) {
         state.cartItem[itemsIndex].cartQuantity += 1;
+        state.cartItem[itemsIndex].totalPriceItem =
+          state.cartItem[itemsIndex].cartQuantity *
+          state.cartItem[itemsIndex].price;
       } else {
-        const tempCart = { ...action.payload, cartQuantity: 1 };
+        const tempCart = {
+          ...action.payload,
+          cartQuantity: 1,
+          totalPriceItem: action.payload.price,
+        };
         state.cartItem.push(tempCart);
       }
       state.number += 1;
+      state.total += action.payload.price;
     },
     removeCart(state, action) {
       state.number -= 1;
