@@ -3,6 +3,7 @@ import { Food } from "../models";
 const addFood = async (req, res) => {
   const { name, type, description, price } = req.body;
   const quantity_order = 0;
+  console.log(name, type, description, price, quantity_order);
   try {
     const newFood = await Food.create({
       name,
@@ -12,6 +13,15 @@ const addFood = async (req, res) => {
       quantity_order,
     });
     res.status(201).send(newFood);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const getDetailFood = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const food = await Food.findOne({ where: { id } });
+    res.status(200).send(food);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -88,7 +98,7 @@ const removeFood = async (req, res) => {
 };
 const uploadImgFood = async (req, res) => {
   const { id } = req.params;
-  const { file } = req;
+  const file = req.file;
   const url = `http://localhost:5000/${file.path}`;
   try {
     const img_path = await Food.findOne({
@@ -110,4 +120,5 @@ export {
   updateFood,
   removeFood,
   uploadImgFood,
+  getDetailFood,
 };

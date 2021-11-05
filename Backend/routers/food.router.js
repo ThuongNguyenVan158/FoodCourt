@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addFood,
+  getDetailFood,
   getListFoodbyName,
   getListFoodByPriceASC,
   getListFoodByPriceDESC,
@@ -19,6 +20,7 @@ foodRouter.post(
   authorizeUser(["admin", "superAdmin"]),
   addFood
 );
+foodRouter.get("/detail/:id", getDetailFood);
 foodRouter.get("/getListFoodbyName", getListFoodbyName);
 foodRouter.get("/getListFoodByType", getListFoodByType);
 foodRouter.get("/getListFoodByPriceASC", getListFoodByPriceASC);

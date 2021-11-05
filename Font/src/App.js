@@ -22,10 +22,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Switch>
-          {showLayoutHome(RouteHome)}
-          <Route path="/login" component={SignIn} />
-        </Switch>
+        <Switch>{showLayoutHome(RouteHome)}</Switch>
       </BrowserRouter>
     </div>
   );

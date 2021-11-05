@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import Footer from "../../components/Footer-Client/footer";
-import Header from "../../components/Header-Client/header";
-import { Route } from "react-router-dom";
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import FooterClient from '../../components/FooterClient';
+import HeaderClient from '../../components/HeaderClient';
 function LayoutHome(props) {
-  // const path = props.children.props.path;
   return (
     <>
-      <Header />
+      <HeaderClient />
       {props.children}
-      <Footer />
+      <FooterClient />
     </>
   );
 }
