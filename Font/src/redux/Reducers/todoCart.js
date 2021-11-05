@@ -49,7 +49,14 @@ const todoCart = createSlice({
       }
     },
     removeCart(state, action) {
-      state.number -= 1;
+      const itemsIndex = state.cartItem.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.number -= state.cartItem[itemsIndex].cartQuantity;
+      state.total -= state.cartItem[itemsIndex].totalPriceItem;
+      state.cartItem = state.cartItem.filter(
+        (item) => item.id != action.payload.id
+      );
     },
   },
 });
