@@ -24,7 +24,7 @@ export default function Order() {
                 <div className="breadcrumb-mid">
                   <ul className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a>
+                      <a href="/">
                         <Link to="/">Home</Link>
                       </a>
                     </li>

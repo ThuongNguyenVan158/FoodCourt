@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useSelector } from "react-redux";
 import TotalItemOrder from "../TotalItemOrder";
 import OrderItem from "../OrderItem";
 export default function OrderList() {
   const CartItem = useSelector((state) => state.todoCart.cartItem);
+  // const [state, setState] = useState(CartItem);
   console.log(CartItem);
+  useEffect(() => {}, [CartItem]);
   return (
     <div>
       <div className="cart-area pd-top-120 pd-bottom-120">

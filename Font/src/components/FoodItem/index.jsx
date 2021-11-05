@@ -3,7 +3,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/Reducers/todoCart";
 export default function FoodItem(props) {
   const item = props.item;
@@ -13,7 +13,7 @@ export default function FoodItem(props) {
     dispatch(addToCart(item));
   };
   return (
-    <div className=" mb-5 col-5   ">
+    <div className=" mb-5 col-5 ">
       <div className="food-card bg-white rounded-lg overflow-hidden mb-4 shadow">
         <div className="food-card_img position-relative">
           <img src={item.food_img} alt="img" />

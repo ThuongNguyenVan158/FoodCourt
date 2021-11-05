@@ -1,6 +1,10 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { addToCart } from "../../redux/Reducers/todoCart";
+import {
+  addToCart,
+  decreaseCart,
+  removeCart,
+} from "../../redux/Reducers/todoCart";
 import { useDispatch } from "react-redux";
 export default function OrderItem(props) {
   const dispatch = useDispatch();
@@ -8,10 +12,17 @@ export default function OrderItem(props) {
   const addtoCart = () => {
     dispatch(addToCart(item));
   };
+  const decrease = () => {
+    dispatch(decreaseCart(item));
+  };
+  const removeCartItem = () => {
+    dispatch(removeCart(item));
+  };
   return (
     <tr>
       <td className="table-close-btn">
         <Button
+          onClick={removeCartItem}
           type="button"
           className=" btn btn-delete mt-3 pd-3"
           variant="outlined"
@@ -34,7 +45,12 @@ export default function OrderItem(props) {
       <td className="table-quantity">
         <form>
           <div className="quantity buttons_added d-flex justify-content-between mt-4">
-            <Button variant="contained" color="success" className="plus">
+            <Button
+              onClick={() => decrease()}
+              variant="contained"
+              color="success"
+              className="plus"
+            >
               -
             </Button>
             <h4>{item.cartQuantity}</h4>

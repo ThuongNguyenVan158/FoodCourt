@@ -1,21 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Item.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import "./Item.scss";
+import { useDispatch } from "react-redux";
+import { removeCart } from "../../../redux/Reducers/todoCart";
 
 function Item(props) {
-  const { title, price } = props.item;
+  const { name, price, food_img, cartQuantity } = props.item;
+  const dispatch = useDispatch();
   return (
     <>
       <div className="dish-cart">
         <div className="dish-cart__detail">
           <div className="d-flex flex-column p-1">
-            <div>{title}</div>
-            <div>x1</div>
-            <button className="dish-cart__detail__remove">Xóa</button>
+            <div>{name}</div>
+            <div>
+              <h4> x {cartQuantity}</h4>
+            </div>
+            <button
+              onClick={() => {
+                dispatch(removeCart(props.item));
+              }}
+              className="dish-cart__detail__remove"
+            >
+              Xóa
+            </button>
           </div>
         </div>
         <div className="d-flex align-items-center dish-cart__price">
-          <div>{price}</div>
+          <div>
+            <h4> {price}</h4>
+          </div>
         </div>
       </div>
     </>
