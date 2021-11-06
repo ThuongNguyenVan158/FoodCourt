@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   signIn: {
     position: "absolute",
-    top: 0,
+    top: 70,
     right: "0",
     width: "100%",
     height: "100%",
@@ -33,21 +33,6 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     background: `url(${bgIn}) no-repeat right center`,
     backgroundSize: "cover",
-  },
-
-  buttonHome: {
-    position: "fixed",
-    top: 15,
-    left: 10,
-    zIndex: "100",
-    width: "100%",
-    height: "10%",
-    "& svg": {
-      fontSize: "25px",
-    },
-    "& button": {
-      borderRadius: "20px",
-    },
   },
 
   btnChangePage: {
