@@ -3,6 +3,7 @@ import SignIn from "../container/Client/Login/login.page";
 import DetailFood from "../container/Client/DetailFood";
 import Order from "../container/Client/Order";
 import Checkout from "../container/Client/Checkout";
+import UserPage from "../container/Client/user/user.page";
 const RouteHome = [
   {
     exact: true,
@@ -28,6 +29,11 @@ const RouteHome = [
     exact: false,
     path: "/detail/:id",
     component: DetailFood,
+  },
+  {
+    exact: false,
+    path: "/user",
+    component: UserPage,
   },
 ];
 export { RouteHome };

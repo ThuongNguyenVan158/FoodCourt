@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   signIn: {
     position: "absolute",
-    top: 70,
+    top: 0,
     right: "0",
     width: "100%",
     height: "100%",
@@ -34,6 +34,21 @@ export const useStyles = makeStyles((theme) => ({
     background: `url(${bgIn}) no-repeat right center`,
     backgroundSize: "cover",
   },
+
+  // buttonHome: {
+  //   position: "fixed",
+  //   top: 15,
+  //   left: 10,
+  //   zIndex: "100",
+  //   width: "100%",
+  //   height: "10%",
+  //   "& svg": {
+  //     fontSize: "25px",
+  //   },
+  //   "& button": {
+  //     borderRadius: "20px",
+  //   },
+  // },
 
   btnChangePage: {
     width: "100%",
@@ -70,8 +85,8 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   formBox: {
-    width: 300,
-    height: 400,
+    width: 350,
+    height: 450,
     border: "1px solid #ddd",
     boxShadow: "0 10px 30px 0 #1976d250",
     textAlign: "center",
@@ -93,10 +108,10 @@ export const useStyles = makeStyles((theme) => ({
     margin: "20px 0",
     "& svg": {
       fontSize: "25px",
-      width: "50px",
+      width: "20px",
       height: "40px",
-      padding: "10px",
       color: "#acacac",
+      margin: "0 0 0 10px",
     },
     "& input": {
       border: "none",
@@ -105,6 +120,9 @@ export const useStyles = makeStyles((theme) => ({
       color: "#500",
       fontSize: "16px",
       fontWeight: "600",
+      width: "208px",
+      borderRadius: "20px",
+      padding: "10px",
     },
     boxShadow: "0 10px 30px 0 #1976d250",
   },

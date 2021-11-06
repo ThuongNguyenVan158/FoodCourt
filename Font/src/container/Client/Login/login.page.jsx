@@ -25,13 +25,14 @@ function SignIn() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <div className={classes.buttonHome}>
+            {/* <div className={classes.buttonHome}>
                 <Link to="/">
                     <Button variant="outlined" color="error">
                         <HomeIcon/>
                     </Button>
                 </Link>
-            </div>
+            </div> */}
+            <div style={{height: '74px'}}></div>
             <div className={classes.flexBox}>
                 <div className={classes.signIn} id="signInPage">
                     <div className={classes.boxSignIn}>
@@ -90,6 +91,10 @@ function SignIn() {
                                         <div className={classes.inputField}>
                                             <LockIcon/>
                                             <input type="password" name="password" placeholder="password"></input>
+                                        </div>
+                                        <div className={classes.inputField}>
+                                            <LockIcon/>
+                                            <input type="password" name="cfpassword" placeholder="confirm password"></input>
                                         </div>
                                         
                                         <div className={classes.btnBox}>
