@@ -33,7 +33,7 @@ export default function FoodItem(props) {
                 style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}
                 className="food-card_author"
               >
-                {item.type}
+                {item.category.name}
               </h2>
               <div className="rating-box">
                 <Rating

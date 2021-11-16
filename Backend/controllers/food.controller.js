@@ -1,5 +1,6 @@
 import { Op } from "sequelize";
-import { Food } from "../models";
+import { Food, category } from "../models";
+
 const addFood = async (req, res) => {
   const { name, type, description, price } = req.body;
   const quantity_order = 0;
@@ -7,7 +8,7 @@ const addFood = async (req, res) => {
   try {
     const newFood = await Food.create({
       name,
-      type,
+      category_id,
       description,
       price,
       quantity_order,
@@ -17,6 +18,7 @@ const addFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const getDetailFood = async (req, res) => {
   const { id } = req.params;
   try {
@@ -26,11 +28,19 @@ const getDetailFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const getListFoodbyName = async (req, res) => {
   const { name } = req.body;
   try {
     if (!name) {
-      const listFood = await Food.findAll();
+      const listFood = await Food.findAll({
+        where: { active: 1 },
+        include: [
+          {
+            model: category,
+          },
+        ],
+      });
       res.status(200).send(listFood);
     } else {
       const listFood = await Food.findAll({
@@ -44,6 +54,7 @@ const getListFoodbyName = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const getListFoodByPriceASC = async (req, res) => {
   try {
     const listFood = await Food.findAll({
@@ -54,6 +65,7 @@ const getListFoodByPriceASC = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const getListFoodByPriceDESC = async (req, res) => {
   try {
     const listFood = await Food.findAll({
@@ -64,6 +76,7 @@ const getListFoodByPriceDESC = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const getListFoodByType = async (req, res) => {
   const type = req.body;
   try {
@@ -77,6 +90,7 @@ const getListFoodByType = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const updateFood = async (req, res) => {
   const { name, type, description, price } = req.body;
   const { id } = req.params;
@@ -87,6 +101,7 @@ const updateFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const removeFood = async (req, res) => {
   const { id } = req.params;
   try {
@@ -96,6 +111,7 @@ const removeFood = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
 const uploadImgFood = async (req, res) => {
   const { id } = req.params;
   const file = req.file;

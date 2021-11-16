@@ -13,7 +13,7 @@ import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
 const customerRouter = express.Router();
 customerRouter.post("/register", checkEmailDuplicate, register);
-customerRouter.get("/login", login);
+customerRouter.post("/login", login);
 customerRouter.get(
   "/",
   authenticate,

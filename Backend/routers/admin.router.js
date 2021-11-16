@@ -9,7 +9,7 @@ import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
 import { checkEmailDuplicateAdmin } from "../middlewares/Validation/Email-exist";
 const adminRouter = express.Router();
-adminRouter.get("/login", loginAdmin);
+adminRouter.post("/login", loginAdmin);
 adminRouter.put(
   "/updateAdmin/:id",
   authenticate,
