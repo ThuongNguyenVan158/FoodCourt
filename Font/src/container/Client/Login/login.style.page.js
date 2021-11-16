@@ -4,7 +4,7 @@ import bgUp from "./../../../assets/bgsignup.png";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    height: "111vh",
     width: "100%",
   },
   flexBox: {
