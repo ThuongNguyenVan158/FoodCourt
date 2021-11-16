@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import FooterClient from '../../components/FooterClient';
 import HeaderClient from '../../components/HeaderClient';
 function LayoutHome(props) {
-  const path = props.children.props.path;
   return (
     <>
       <HeaderClient />

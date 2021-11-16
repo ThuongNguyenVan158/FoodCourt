@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 import path from "path";
 import { sequelize } from "./models";
 import rootRouter from "./routers";
+import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use("/api/v1", rootRouter);
-
+app.use(cors());
 const publicPath = path.join(__dirname, "./public");
 app.use("/public", express.static(publicPath));
 app.use("/api/v1", rootRouter);

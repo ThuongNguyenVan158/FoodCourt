@@ -1,6 +1,4 @@
-
-import mkdirp from "mkdirp";
-import multer from "multer";
+const multer = require("multer");
 const uploadImage = (type) => {
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {

@@ -1,9 +1,7 @@
-import "./App.css";
-import { RouteHome } from "./routers";
 import { BrowserRouter, Switch } from "react-router-dom";
+import "./App.css";
 import HomeTemplate from "./container/Client";
-import { Route } from "react-router";
-import SignIn from "./container/Client/Login/login.page";
+import { RouteHome } from "./routers";
 function App() {
   const showLayoutHome = (routes) => {
     if (routes && routes.length > 0) {
@@ -22,10 +20,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Switch>
-          {showLayoutHome(RouteHome)}
-          <Route path="/login" component={SignIn} />
-        </Switch>
+        <Switch>{showLayoutHome(RouteHome)}</Switch>
       </BrowserRouter>
     </div>
   );
