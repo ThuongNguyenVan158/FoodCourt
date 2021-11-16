@@ -1,8 +1,7 @@
-import "./App.css";
-import { RouteHome } from "./routers";
 import { BrowserRouter, Switch } from "react-router-dom";
+import "./App.css";
 import HomeTemplate from "./container/Client";
-
+import { RouteHome } from "./routers";
 function App() {
   const showLayoutHome = (routes) => {
     if (routes && routes.length > 0) {

@@ -1,7 +1,7 @@
 import React from "react";
-import "./Item.scss";
 import { useDispatch } from "react-redux";
 import { removeCart } from "../../../redux/Reducers/todoCart";
+import "./Item.scss";
 
 function Item(props) {
   const { name, price, cartQuantity } = props.item;

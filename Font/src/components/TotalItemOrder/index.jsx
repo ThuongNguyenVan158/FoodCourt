@@ -1,8 +1,8 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import "./style.css";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Button from '@mui/material/Button';
+import './style.css';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 export default function TotalItemOrder() {
   const total = useSelector((state) => state.todoCart.total);
   return (
@@ -18,8 +18,9 @@ export default function TotalItemOrder() {
           color="warning"
           variant="contained"
           className="btn btn-secondary w-100"
+          disabled={total === 0 ? true : false}
         >
-          <Link style={{ textDecoration: "none" }} to="/checkout">
+          <Link style={{ textDecoration: 'none' }} to="/checkout">
             PROCEED TO CHECKOUT
           </Link>
         </Button>
