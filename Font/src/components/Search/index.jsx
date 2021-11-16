@@ -13,7 +13,6 @@ export default function SearchFood() {
             <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Tên sản phẩm"
-                inputProps={{ 'aria-label': 'search google maps' }}
             />
             <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                 <SearchIcon />
