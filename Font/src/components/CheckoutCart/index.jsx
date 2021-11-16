@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import "./CheckoutCart.scss";
-import { Item, RemoveCart } from "./part";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import './CheckoutCart.scss';
+import { Item, RemoveCart } from './part';
+import { Link } from 'react-router-dom';
 function CheckoutCart(props) {
   const listItemCart = useSelector((state) => state.todoCart.cartItem);
   const total = useSelector((state) => state.todoCart.total);
@@ -13,7 +13,7 @@ function CheckoutCart(props) {
         <div className="checkout-cart__header">
           <div>Các món đã chọn</div>
           <button className="btn btn-sm checkout-cart__add-item">
-            <Link style={{ textDecoration: "none" }} to="/">
+            <Link to="/" className="checkout-cart__add-item__link">
               Thêm món
             </Link>
           </button>

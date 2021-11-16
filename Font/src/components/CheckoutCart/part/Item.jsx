@@ -1,11 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./Item.scss";
-import { useDispatch } from "react-redux";
-import { removeCart } from "../../../redux/Reducers/todoCart";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeCart } from '../../../redux/Reducers/todoCart';
+import './Item.scss';
 
 function Item(props) {
-  const { name, price, food_img, cartQuantity } = props.item;
+  const { name, price, cartQuantity } = props.item;
   const dispatch = useDispatch();
   return (
     <>
