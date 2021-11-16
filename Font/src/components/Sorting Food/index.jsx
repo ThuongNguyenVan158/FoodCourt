@@ -12,8 +12,8 @@ export default function SortingFood() {
   };
 
   return (
-    <Box style={{ marginTop: 30 }}>
-      <FormControl sx={{ m: 1, minWidth: 500 }}>
+    <Box>
+      <FormControl sx={{ m: 1, minWidth: 250 }}>
         <Select
           value={age}
           onChange={handleChange}

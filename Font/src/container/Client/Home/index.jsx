@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import FoodList from '../../../components/FoodList';
 import Slide from '../../../components/Slider';
 import Banner from '../../../components/Banner';
+import SearchFood from '../../../components/Search';
 export default function HomePage() {
   return (
     <div style={{ backgroundColor: '#faf7f2' }}>
@@ -16,9 +17,9 @@ export default function HomePage() {
           <div className="col"></div>
           <div className="col-7">
             <div
-              style={{ marginLeft: 250 }}
-              className="col-8 d-flex justify-content-end"
+              className="col d-flex justify-content-end align-items: center"
             >
+              <SearchFood />
               <SortingFood />
             </div>
             <FoodList />
