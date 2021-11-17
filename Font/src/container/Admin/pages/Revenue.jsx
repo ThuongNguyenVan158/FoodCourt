@@ -167,7 +167,7 @@ const Revenue = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card__header">
-                            <h3>Danh sách hoá đơn</h3>
+                            <h3>Danh sách hoá đơn trong ngày</h3>
                         </div>
                         <div className="card__body">
                             <Table

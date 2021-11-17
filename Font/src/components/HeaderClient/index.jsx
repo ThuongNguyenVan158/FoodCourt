@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import logo from '../../assets/images/foodcourt_infologo.png'
 
 import './HeaderClient.scss';
 
@@ -14,7 +15,7 @@ function HeaderClient() {
         <div className="header__logo">
           <Link to="/">
             <img
-              src="https://www.thefoodcourtsl.com/foodcourt_infologo.png"
+              src={logo}
               alt
             />
           </Link>

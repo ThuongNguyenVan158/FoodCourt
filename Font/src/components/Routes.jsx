@@ -8,6 +8,7 @@ import Categorys from '../container/Admin/pages/Category'
 import Foods from '../container/Admin/pages/Food'
 import Settings from '../container/Admin/pages/Setting'
 import AnotherSettings from '../container/Admin/pages/AnotherSetting'
+import InfoAdmin from '../container/Admin/pages/infoadmin'
 
 const Routes = () => {
     return (
@@ -19,6 +20,7 @@ const Routes = () => {
             <Route path='/settings' component={Settings}/>
             <Route path='/anothersettings' component={AnotherSettings}/>
             <Route path='/profile' component={Settings}/>
+            <Route path='/info' component={InfoAdmin}/>
         </Switch>
     )
 }

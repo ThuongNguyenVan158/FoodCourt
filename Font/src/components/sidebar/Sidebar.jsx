@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import './sidebar.css'
 
-import logo from '../../assets/images/foodcourlogo.jpg'
+import logo from '../../assets/images/foodcourt_infologo.png'
 
 import sidebar_items from '../../assets/JsonData/sidebar_routes.json'
 
@@ -33,8 +33,8 @@ const Sidebar = props => {
             <div>
                 <div className="sidebar__logo">
                     <img src={logo} alt="foodcourt logo" />
-                    KHU ẨM THỰC L06 NHÓM X                    
-                </div>               
+                    <h6>KHU ẨM THỰC </h6>                    
+                </div>  
             </div>
             {   
                 sidebar_items.map((item, index) => (

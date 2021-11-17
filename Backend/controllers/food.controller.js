@@ -127,6 +127,24 @@ const uploadImgFood = async (req, res) => {
     req.status(500).send(error);
   }
 };
+const getallfoodAsync = async(req,res)=>
+{
+  try {
+    const listFood = await Food.findAll();
+    res.status(200).send(listFood);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const getallCategoryAsync = async(req,res)=>
+{
+  try {
+    const listFood = await category.findAll()
+    res.status(200).send(listFood);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 export {
   addFood,
   getListFoodbyName,
@@ -137,4 +155,6 @@ export {
   removeFood,
   uploadImgFood,
   getDetailFood,
+  getallfoodAsync,
+  getallCategoryAsync,
 };

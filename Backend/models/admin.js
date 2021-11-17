@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
       type: DataTypes.STRING,
+      /* 
+      birthdate:pay_date: DataTypes.DATE,
+      gender:DataTypes.STRING,
+      address:DataTypes.STRING,
+       */
     },
     {
       sequelize,

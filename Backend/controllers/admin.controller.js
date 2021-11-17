@@ -1,6 +1,7 @@
 import { Admin } from "../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import {v4 as uuid} from "uuid"
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -92,4 +93,13 @@ const removeAdmin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin };
+const getallEmployeeAsync = async(req,res)=>
+{
+  try {
+    const listAccount = await Admin.findAll()
+    res.status(200).send(listAccount);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin,getallEmployeeAsync };
