@@ -1,10 +1,11 @@
 import { Order, OrderItem, Customer } from "../models";
 const ordering = async (req, res) => {
-  const { customer_id, items, total_amount } = req.body;
+  const { customer_id, items, total_amount, payment_method } = req.body;
   try {
     const newOrder = await Order.create({
       customer_id,
       total_amount,
+      payment_method,
     });
     await items.forEach((element) => {
       await OrderItem.create({

@@ -1,13 +1,7 @@
 import React from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import { useSelector } from "react-redux";
 export default function Header() {
-  const number = useSelector((state) => state.todoCart.number);
-=======
-export default function Header() {
->>>>>>> 61b6cbe4f3387818644979cf99f1776cd22473bb
   return (
     <div>
       <header id="header">
@@ -88,11 +82,7 @@ export default function Header() {
                     >
                       <i className="fa fa-shopping-cart" />
                       <span>Your Cart</span>
-<<<<<<< HEAD
-                      <div className="qty">{number}</div>
-=======
                       <div className="qty">3</div>
->>>>>>> 61b6cbe4f3387818644979cf99f1776cd22473bb
                     </a>
                   </div>
                   {/* /Cart */}
