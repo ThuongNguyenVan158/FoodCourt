@@ -21,11 +21,11 @@ export default function SortingFood() {
           inputProps={{ "aria-label": "Without label" }}
         >
           <MenuItem value="">
-            <em>SORTING</em>
+            <em>Sắp xếp</em>
           </MenuItem>
-          <MenuItem value={10}>Price</MenuItem>
-          <MenuItem value={20}>Rating</MenuItem>
-          <MenuItem value={30}>Order Quantity</MenuItem>
+          <MenuItem value={10}>Giá</MenuItem>
+          <MenuItem value={20}>Đánh giá</MenuItem>
+          <MenuItem value={30}>Chất lượng sản phẩm</MenuItem>
         </Select>
       </FormControl>
     </Box>

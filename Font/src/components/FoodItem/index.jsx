@@ -1,10 +1,14 @@
-import React from "react";
-import "./style.css";
-import { Link } from "react-router-dom";
-import Rating from "@mui/material/Rating";
-import Button from "@mui/material/Button";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/Reducers/todoCart";
+import React from 'react';
+import './style.css';
+import { Link } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
+import Button from '@mui/material/Button';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/Reducers/todoCart';
+import { utils } from '../../helpers';
+
+const { formatMoney } = utils;
+
 export default function FoodItem(props) {
   const item = props.item;
   const linkToDetail = `detail/${item.id}`;
@@ -30,7 +34,7 @@ export default function FoodItem(props) {
             </h4>
             <div className="d-flex justify-content-between">
               <h2
-                style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}
+                style={{ fontSize: 30, fontWeight: 'bold', marginTop: 10 }}
                 className="food-card_author"
               >
                 {item.category.name}
@@ -57,7 +61,7 @@ export default function FoodItem(props) {
             <hr />
             <div className="d-flex justify-content-between">
               <div className="food-card_price">
-                <span> {item.price} VND</span>
+                <span> {formatMoney(item.price)}</span>
               </div>
               <div className="food-card_order-count">
                 <Button
@@ -67,7 +71,7 @@ export default function FoodItem(props) {
                   color="warning"
                   variant="contained"
                 >
-                  Add To Cart
+                  Thêm sản phẩm
                 </Button>
               </div>
             </div>

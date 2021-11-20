@@ -20,24 +20,24 @@ function HeaderClient() {
           </Link>
         </div>
         <div className="header__ctn order-lg-3">
-          <div>
+          {/* <div>
             <Link to="/" className="link">
               <i className="far fa-heart" />
               <span>Your Wishlist</span>
               <div className="qty">2</div>
             </Link>
-          </div>
+          </div> */}
           <div>
             <Link to="/order" className="link">
               <i className="fa fa-shopping-cart" />
-              <span>Your Cart</span>
+              <span>Giỏ hàng</span>
               <div className="qty">{number}</div>
             </Link>
           </div>
           <div>
             <Link to="/login" className="link">
               <i className="fa fa-user" />
-              Login
+              Đăng nhập
             </Link>
           </div>
         </div>

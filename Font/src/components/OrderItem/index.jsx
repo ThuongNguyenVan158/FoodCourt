@@ -1,18 +1,23 @@
-import React from "react";
-import Button from "@mui/material/Button";
+/* eslint-disable jsx-a11y/scope */
+import Button from '@mui/material/Button';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { utils } from '../../helpers';
 import {
   addToCart,
   decreaseCart,
   removeCart,
-} from "../../redux/Reducers/todoCart";
-import { useDispatch } from "react-redux";
+} from '../../redux/Reducers/todoCart';
+
+const { formatMoney } = utils;
+
 export default function OrderItem(props) {
   const dispatch = useDispatch();
   const item = props.data;
-  const addtoCart = () => {
+  const handleAddToCart = () => {
     dispatch(addToCart(item));
   };
-  const decrease = () => {
+  const handleDecrease = () => {
     dispatch(decreaseCart(item));
   };
   const removeCartItem = () => {
@@ -21,14 +26,8 @@ export default function OrderItem(props) {
   return (
     <tr>
       <td className="table-close-btn">
-        <Button
-          onClick={removeCartItem}
-          type="button"
-          className=" btn btn-delete mt-3 pd-3"
-          variant="outlined"
-          color="warning"
-        >
-          X
+        <Button onClick={removeCartItem} variant="contained" color="error" className="mt-4">
+          <i class="fas fa-times"></i>
         </Button>
       </td>
       <td scope="row">
@@ -40,33 +39,31 @@ export default function OrderItem(props) {
         </div>
       </td>
       <td>
-        <h3 className="mt-3 pd-3">{item.price} VND</h3>
+        <h3 className="mt-3 pd-3">{formatMoney(item.price)}</h3>
       </td>
       <td className="table-quantity">
         <form>
           <div className="quantity buttons_added d-flex justify-content-between mt-4">
             <Button
-              onClick={() => decrease()}
+              onClick={handleDecrease}
               variant="contained"
               color="success"
-              className="plus"
             >
-              -
+              <i class="fas fa-minus"></i>
             </Button>
-            <h4>{item.cartQuantity}</h4>
+            <h4 style={{ paddingInline: '10px' }}>{item.cartQuantity}</h4>
             <Button
-              onClick={() => addtoCart()}
+              onClick={handleAddToCart}
               variant="contained"
               color="success"
-              className="plus"
             >
-              +
+              <i class="fas fa-plus"></i>
             </Button>
           </div>
         </form>
       </td>
       <td>
-        <h3 className="mt-3 pd-3">{item.totalPriceItem} VND</h3>
+        <h3 className="mt-3 pd-3">{formatMoney(item.totalPriceItem)}</h3>
       </td>
     </tr>
   );
