@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch } from "react-router-dom";
 import "./App.css";
+import RoutesAdmin from "./components/Routes";
 import HomeTemplate from "./container/Client";
 import { RouteHome } from "./routers";
 function App() {
@@ -21,6 +22,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>{showLayoutHome(RouteHome)}</Switch>
+        <RoutesAdmin />
       </BrowserRouter>
     </div>
   );

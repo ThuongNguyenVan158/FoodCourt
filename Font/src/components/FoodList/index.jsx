@@ -4,22 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { fetchCart } from "../../redux/Reducers/todoCart";
 import Skelection from "../Skelection";
-import Pagination from "../Pagination";
 export default function FoodList() {
   const [loading, setLoading] = useState(false);
-  const listCart = useSelector((state) => state.todoCart.listCart);
   const dispatch = useDispatch();
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 6,
-    perpage: 4,
-    start: 0,
-    total: listCart.length,
-    showPrevButton: false,
-    showFirstPageButton: false,
-    showNextButton: false,
-    showLastPageButton: false,
-  });
+  const listCart = useSelector((state) => state.todoCart.listCart);
   const fetchListCart = async () => {
     const res = await axios.get(
       "http://localhost:5000/api/v1/food/getListFoodbyName"
@@ -33,17 +21,12 @@ export default function FoodList() {
   useEffect(() => {
     console.log("ListCart: ", listCart);
   }, [loading]);
-  // useEffect(() => {}, [pagination]);
+
   return loading === true ? (
     <div className="flex-wrap mt-5 d-flex justify-content-between align-item-center ">
-      {listCart.slice(pagination.start, pagination.perpage).map((item, key) => (
+      {listCart.map((item, key) => (
         <FoodItem item={item} key={key} />
       ))}
-      <Pagination
-        pagination={pagination}
-        listCart={listCart}
-        setPagination={setPagination}
-      />
     </div>
   ) : (
     <Skelection />

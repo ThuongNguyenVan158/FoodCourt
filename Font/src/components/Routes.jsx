@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import { Route, Switch } from 'react-router-dom'
-
+import { Route, Switch } from "react-router-dom";
 import Revenue from '../container/Admin/pages/Revenue'
 import Accounts from '../container/Admin/pages/Account'
 import Categorys from '../container/Admin/pages/Category'
@@ -29,4 +28,4 @@ const Routes = () => {
     )
 }
 
-export default Routes
+export default RoutesAdmin;

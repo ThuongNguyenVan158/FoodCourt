@@ -11,10 +11,10 @@ module.exports = {
     // await queryInterface.addColumn("Orders", "payment_method", {
     //   type: Sequelize.STRING,
     // });
-    await queryInterface.changeColumn("Food", "active", {
-      type: Sequelize.BOOLEAN,
-      default: true,
-    });
+    // await queryInterface.changeColumn("Food", "active", {
+    //   type: Sequelize.BOOLEAN,
+    //   default: true,
+    // });
   },
 
   down: async (queryInterface, Sequelize) => {

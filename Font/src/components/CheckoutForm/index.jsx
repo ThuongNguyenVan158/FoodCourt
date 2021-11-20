@@ -1,10 +1,10 @@
-import React from "react";
-import { PaymentMethod, Receiver } from "./part";
+import React from 'react';
+import { PaymentMethod } from './part';
 
 function CheckoutForm(props) {
   return (
     <>
-      <Receiver />
+      {/* <Receiver /> */}
       <PaymentMethod />
     </>
   );

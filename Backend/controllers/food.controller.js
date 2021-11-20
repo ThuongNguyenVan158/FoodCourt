@@ -105,7 +105,9 @@ const updateFood = async (req, res) => {
 const removeFood = async (req, res) => {
   const { id } = req.params;
   try {
-    await Food.destroy(id);
+    await Food.destroy({
+      where: { id: id },
+    });
     res.status(200).send("Delete successfully");
   } catch (error) {
     res.status(500).send(error);

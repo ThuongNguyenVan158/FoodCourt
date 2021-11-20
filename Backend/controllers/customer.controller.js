@@ -108,7 +108,7 @@ const getDetailsCus = async (req, res) => {
   const { id } = req.params;
   const { user } = req;
   try {
-    if (user.id === id) {
+    if (user.id == id) {
       const detailCus = await Customer.findOne({
         where: { id },
       });
