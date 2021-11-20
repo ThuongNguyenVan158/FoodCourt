@@ -5,21 +5,21 @@ import { useHistory, useParams } from "react-router-dom";
 const EditCategory =()=>{
     let history = useHistory(); //The useHistory hook gives you access to the history instance that you may use to navigate.
     const { id } = useParams();
-
+    const initcate= axios.get(`http://localhost:5000/api/v1/category/detail/${id}`);
     const [newCate,setnewCate]=useState(
-        {  id: "",
+        {  
            name: "",
            img_url: "",
        });
        const {name,img_url} =newCate;
       const handelupdateCategory = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:5000/api/v1/employee/${id}`, newCate);
+        await axios.put(`http://localhost:5000/api/v1/category/updateCategory/${id}`, newCate);
         history.push("/categorys");
       };
      
       const loadnewCate =  () => {
-        fetch(`http://localhost:5000/api/v1/employee/${id}`,{
+        fetch(`http://localhost:5000/api/v1/category/detail/${id}`,{
                 method: "GET",
               })
                 .then((response) => response.json())

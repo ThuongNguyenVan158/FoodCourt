@@ -4,6 +4,7 @@ import {
     getallCategoryAsync,
     updateCate,
     removeCate,
+    getDetailCate,
 } from "../controllers/category.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
@@ -35,4 +36,5 @@ categoryRouter.delete(
   // authorizeUser(["admin", "superAdmin"]),
   removeCate
 );
+categoryRouter.get("/detail/:id", getDetailCate);
 export { categoryRouter };

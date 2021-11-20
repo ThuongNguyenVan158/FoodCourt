@@ -1,6 +1,6 @@
 import React,{useState,  useEffect} from 'react'
 import axios from "axios";
-import Table from '../../../components/table/Table'
+import "./style.css"
 import { Link } from 'react-router-dom';
 // import {toast} from "react-toastify"
 // 
@@ -115,34 +115,44 @@ const Categorys = () => {
                                 </button>
                              </div>  
                             <div className="card__body">
-                                <Table
-                                    limit='10'
-                                    headData={latestOrders.header}
-                                    renderHead={(item, index) => renderOrderHead(item, index)}
-                                    bodyData={listcate}
-                                    renderBody={(item, index) =>
-                                        <tr key={index}>
-                                            <td>{item.id}</td>
-                                            <td>{item.name}</td>
-                                            <td>{item.img_url}</td>
-                                            <td>                                     
-                                                   <Link onClick={() => {
+                                   <div className="table-wrapper">
+                                    <thead >
+                                        <tr > 
+                                            <td className="td1">Mã danh mục</td>
+                                            <td className="td1">Tên danh mục</td>
+                                            <td className="td1">Url image</td>
+                                            <td className="td1">Xoá / Sửa</td>
+                                        </tr>
+                                    </thead>
+                                    <div className="table-wrapper">
+                                    {listcate.map((item) =>
+                                    
+                                        <div className="table-wrapper">
+                                        <tr  key={item.index}>
+                                            <td className="td1">{item.id}</td>
+                                            <td className="td1">{item.name}</td>
+                                            <td className="td1">{item.img_url}</td>
+                                            <td className="td1">                                     
+                                                   <button onClick={() => {
                                                      const confirmBox = window.confirm(
                                                        "Bạn chắc chắn muốn xoá "+ item.name
                                                      )
                                                      if (confirmBox === true) {
                                                        deleteRecord(item.id)
                                                      }
-                                                   }}> <i className="far fa-trash-alt" style={{fontSize:"18px",marginRight:"5px"}}></i> </Link>
-                   
-                                                <Link className=" mr-2" to={`/editCategory/${item.id}`}>
+                                                   }}> <i className="far fa-trash-alt" style={{fontSize:"18px",marginRight:"5px"}}></i> </button>
+                                                <Link className=" mr-2" to={`/editCategory/${listcate.id}`}>
                                                   <i className="fa fa-edit" aria-hidden="true"></i> 
                                                 </Link>
                                             </td>
-                                        </tr>                
+                                        </tr>   
+                                        </div>             
+                                    )
+                                   
                                     }
-                                />
-                            </div>                                                              
+                                    </div>
+                                    </div>
+                            </div>                                                                                                                          
                         </div>
                     </div>
                 </div>

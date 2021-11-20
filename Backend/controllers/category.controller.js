@@ -44,4 +44,13 @@ const getallCategoryAsync = async(req,res)=>
     res.status(500).send(error);
   }
 };
-export{addCate,updateCate,removeCate,getallCategoryAsync};
+const getDetailCate = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cate = await category.findOne({ where: { id } });
+    res.status(200).send(food);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+export{addCate,updateCate,removeCate,getallCategoryAsync,getDetailCate};
