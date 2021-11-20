@@ -20,30 +20,16 @@ const InfoAdmin = () => {
                                 </div>
                                 <div className="form-group">
                                     <lable>Loại tài khoản</lable>
-                                    <select className="form-control" readOnly>
-                                        <option value="1">Quản trị viên</option>
-                                        <option value="2">Nhân viên</option>
-                                    </select>
+                                    <input type="text" className="form-control" readOnly></input>
                                 </div>   
-                                <div className="form-group">
-                                    <lable>Giới tính</lable>
-                                    <select className="form-control" readOnly>
-                                        <option value="1">Nam</option>
-                                        <option value="2">Nữ</option>
-                                    </select>
-                                </div>
                                 <div className="form-group">
                                     <lable>Tên tài khoản</lable>
                                     <input type="text" className="form-control"></input>
-                                </div>    
-                                <div className="form-group">
-                                    <lable>Ngày sinh</lable>
-                                    <input type="date" className="form-control"></input>
-                                </div> 
-                                <div className="form-group">
-                                    <lable>Địa chỉ</lable>
-                                    <input type="text" className="form-control"></input>
                                 </div>
+                                <div className="form-group">
+                                    <lable>Email</lable>
+                                    <input type="email" className="form-control"></input>
+                                </div>        
                                 <div className="row">
                                     <div className="col-12">
                                         <button type="submit" className="buttonform">Thay đổi thông tin</button>

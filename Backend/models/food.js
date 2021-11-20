@@ -21,9 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       price: DataTypes.INTEGER,
       food_img: DataTypes.STRING,
       quantity_order: DataTypes.INTEGER,
-      /*
-      status:DataTypes.STRING
-      */
+      active: DataTypes.BOOLEAN,
     },
     {
       sequelize,

@@ -2,25 +2,17 @@ import React,{useState,useEffect} from "react";
 import axios from "axios";
 
 import Table from "../../../components/table/Table";
-
-import customerList from "../../../assets/JsonData/customers-list.json";
+import { Link } from 'react-router-dom';
 
 const customerTableHead = [
   "Tên đăng nhập",
   "Tên tài khoản",
   "Loại tài khoản",
   "email",
+  "Xoá",
 ];
 
 const renderHead = (item, index) => <th key={index}>{item}</th>;
-const renderBody = (item, index) => (
-  <tr key={index} >
-    <td>{item.username}</td>
-    <td>{item.name}</td>
-    <td>{item.type}</td>
-    <td>{item.email}</td>
-  </tr>
-)
 
 const Accounts = () => {
   const [listAccount,setlistAccount]=useState([]);
@@ -43,24 +35,32 @@ const Accounts = () => {
   const handleAdd=(e)=>{
     e.preventDefault();
   };
-  const handleRemove=(e)=>{
-    e.preventDefault();
+  const fetchListAccount= async()=>{
+    try {
+      const res = await axios.get(
+          `http://localhost:5000/api/v1/security/admin/getAllEmployee`
+        );
+      setlistAccount(res.data);
+      console.log(res.data);
+  } catch (error) {
+      console.log('fail to get listCategory', error.message)
+  }
   };
+
  useEffect(()=>{
-   async function fetchListAccount()
-   {
-       try {
-           const res = await axios.get(
-               `http://localhost:5000/api/v1/security/admin/getAllEmployee`
-             );
-           setlistAccount(res.data);
-           console.log(res.data);
-       } catch (error) {
-           console.log('fail to get listCategory', error.message)
-       }
-   }
    fetchListAccount();
  },[]);
+
+ const deleteRecord = (AccId) =>
+ {
+   axios.delete(`http://localhost:5000/api/v1/employee/${AccId}`)
+   .then((result)=>{
+    fetchListAccount();
+   })
+   .catch(()=>{
+     alert('Error in the Code');
+   });
+ };
   return (
     <div>
       <h2 className="page-header">Quản lí tài khoản</h2>
@@ -88,29 +88,13 @@ const Accounts = () => {
                   </select>
                 </div>
                 <div className="form-group">
-                  <lable>Giới tính</lable>
-                  <select className="form-control" name="gender" onChange={handleInputChange}>
-                    <option value="1">Nam</option>
-                    <option value="2">Nữ</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <lable>Ngày sinh</lable>
-                  <input type="date" className="form-control" name="birthdate" onChange={handleInputChange}></input>
-                </div>
-                <div className="form-group">
-                  <lable>Địa chỉ</lable>
-                  <input type="text" className="form-control" name="address" onChange={handleInputChange}></input>
+                  <lable>Email</lable>
+                  <input type="email" className="form-control" name="name" onChange={handleInputChange}></input>
                 </div>
                 <div className="row">
-                  <div className="col-6">
+                  <div className="col-12">
                     <button type="submit" className="buttonform" onClick={handleAdd}>
                       Thêm
-                    </button>
-                  </div>
-                  <div className="col-6">
-                    <button type="submit" className="buttonform" onClick={handleRemove}>
-                      Xoá
                     </button>
                   </div>
                 </div>
@@ -123,13 +107,38 @@ const Accounts = () => {
             <div className="card__header1">
               <h3>Danh sách tài khoản nhân viên</h3>
             </div>
+            <div className="input-group mb-4 mt-3">
+               <div className="form-outline">
+                   <input type="text" id="form1" className="form-control" placeholder="Tìm kiếm" style={{backgroundColor:"#ececec"}}/>
+               </div>
+               <button type="button"  className="btn btn-success">
+                   <i className="fa fa-search" aria-hidden="true"></i>
+               </button>
+            </div>  
             <div className="card__body">
               <Table
                 limit="10"
                 headData={customerTableHead}
                 renderHead={(item, index) => renderHead(item, index)}
                 bodyData={listAccount}
-                renderBody={(item, index) => renderBody(item,index)}
+                renderBody={(item, index) => 
+                  <tr key={index}>
+                    <td>{item.username}</td>
+                    <td>{item.name}</td>
+                    <td>{item.type}</td>
+                    <td>{item.email}</td>
+                    <td>
+                        <Link onClick={() => {
+                            const confirmBox = window.confirm(
+                              "Bạn chắc chắn muốn xoá "+ item.name
+                            )
+                            if (confirmBox === true) {
+                              deleteRecord(item.id)
+                            }
+                          }}> <i className="far fa-trash-alt" style={{fontSize:"18px",marginRight:"5px"}}></i> </Link>
+                    </td>
+                  </tr>
+                }
               />
             </div>
           </div>

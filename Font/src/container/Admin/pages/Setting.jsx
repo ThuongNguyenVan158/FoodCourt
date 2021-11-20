@@ -30,10 +30,6 @@ const Settings = () => {
                         <div className="card__body">
                             <form>
                                  <div className="form-group">
-                                     <lable>Mật khẩu hiện tại</lable>
-                                     <input type="text" className="form-control" name="password" onChange={handleInputChange}></input>
-                                 </div>
-                                 <div className="form-group">
                                      <lable>Mật khẩu mới</lable>
                                      <input type="text" className="form-control" name="newpassword" onChange={handleInputChange}></input>
                                  </div>

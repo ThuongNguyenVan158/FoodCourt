@@ -2,6 +2,8 @@ import express from "express";
 import {
     addCate,
     getallCategoryAsync,
+    updateCate,
+    removeCate,
 } from "../controllers/category.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
@@ -14,12 +16,12 @@ categoryRouter.post(
 );
 
 categoryRouter.get("/getListCategory", getallCategoryAsync);
-// categoryRouter.put(
-//   "updateFood/:id",
-//   authenticate,
-//   authorizeUser(["admin", "superAdmin"]),
-//   updateFood
-// );
+categoryRouter.put(
+  "updateCategory/:id",
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
+  updateCate
+);
 // categoryRouter.post(
 //   "/uploadImg/:id",
 //   authenticate,
@@ -27,10 +29,10 @@ categoryRouter.get("/getListCategory", getallCategoryAsync);
 //   uploadImage("food-img"),
 //   uploadImgFood
 // );
-// categoryRouter.delete(
-//   "/deleteFood/:id",
-//   authenticate,
-//   authorizeUser(["admin", "superAdmin"]),
-//   removeFood
-// );
+categoryRouter.delete(
+  "/deleteCategory/:id",
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
+  removeCate
+);
 export { categoryRouter };

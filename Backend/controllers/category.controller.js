@@ -14,26 +14,27 @@ const addCate = async (req, res) => {
     res.status(500).send(error);
   }
 };
-// const updateCate = async (req, res) => {
-  // const { name, type, description, price } = req.body;
-  // const { id } = req.params;
+const updateCate = async (req, res) => {
+  const { name, img_url } = req.body;
+  const { id } = req.params;
+  try {
+    await category.update({ name, img_url }, { where: { id } });
+    res.status(200).send("Update successfully");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+// 
+const removeCate = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
   // try {
-    // await Food.update({ name, type, description, price }, { where: { id } });
-    // res.status(200).send("Update successfully");
-  // } catch (error) {
-    // res.status(500).send(error);
-  // }
-// };
-
-// const removeCate = async (req, res) => {
-  // const { id } = req.params;
-  // try {
-    // await Food.destroy(id);
+    // await category.destroy({where: id});
     // res.status(200).send("Delete successfully");
   // } catch (error) {
     // res.status(500).send(error);
   // }
-// };
+};
 const getallCategoryAsync = async(req,res)=>
 {
   try {
@@ -43,4 +44,4 @@ const getallCategoryAsync = async(req,res)=>
     res.status(500).send(error);
   }
 };
-export{addCate,getallCategoryAsync};
+export{addCate,updateCate,removeCate,getallCategoryAsync};

@@ -5,6 +5,7 @@ import {
   removeAdmin,
   updateAdmin,
   getallEmployeeAsync,
+  getDetailsAdmin,
 } from "../controllers/admin.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
@@ -31,4 +32,5 @@ adminRouter.delete(
   removeAdmin
 );
 adminRouter.get("/getAllEmployee", getallEmployeeAsync);
+adminRouter.get("/detailAdmin/:id", getDetailsAdmin);
 export { adminRouter };
