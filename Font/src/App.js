@@ -22,7 +22,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>{showLayoutHome(RouteHome)}</Switch>
-        <RoutesAdmin />
+        {/* <RoutesAdmin /> */}
       </BrowserRouter>
     </div>
   );
