@@ -16,6 +16,13 @@ module.exports = {
     //   type: Sequelize.STRING,
     //   defaultValue: "admin",
     // });
+    // await queryInterface.addColumn("Food", "category_id", {
+    //   type: Sequelize.INTEGER,
+    //   references: {
+    //     model: "categories",
+    //     key: "id",
+    //   },
+    // });
   },
 
   down: async (queryInterface, Sequelize) => {

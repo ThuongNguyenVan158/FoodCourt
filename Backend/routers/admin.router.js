@@ -4,12 +4,14 @@ import {
   loginAdmin,
   removeAdmin,
   updateAdmin,
+  getallEmployeeAsync,
+  getDetailsAdmin,
 } from "../controllers/admin.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
 import { checkEmailDuplicateAdmin } from "../middlewares/Validation/Email-exist";
 const adminRouter = express.Router();
-adminRouter.get("/login", loginAdmin);
+adminRouter.post("/login", loginAdmin);
 adminRouter.put(
   "/updateAdmin/:id",
   authenticate,
@@ -29,4 +31,6 @@ adminRouter.delete(
   authorizeUser(["admin,superAdmin"]),
   removeAdmin
 );
+adminRouter.get("/getAllEmployee", getallEmployeeAsync);
+adminRouter.get("/detailAdmin/:id", getDetailsAdmin);
 export { adminRouter };

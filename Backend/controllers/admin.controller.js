@@ -1,6 +1,7 @@
 import { Admin } from "../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import {v4 as uuid} from "uuid"
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -92,4 +93,28 @@ const removeAdmin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin };
+const getallEmployeeAsync = async(req,res)=>
+{
+  try {
+    const listAccount = await Admin.findAll()
+    res.status(200).send(listAccount);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const getDetailsAdmin = async (req, res) => {
+  const { id } = req.params;
+  const { user } = req;
+  try {
+    if (user.id === id) {
+      const detailAdmin = await Customer.findOne({
+        where: { id },
+      });
+      res.status(200).send(detailAdmin);
+    } else
+      return res.status(401).send("Không thể xem chi tiết người dùng này !");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin,getallEmployeeAsync,getDetailsAdmin};

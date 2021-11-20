@@ -2,6 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { removeCart } from '../../../redux/Reducers/todoCart';
 import './Item.scss';
+import { utils } from '../../../helpers';
+
+const { formatMoney } = utils;
 
 function Item(props) {
   const { name, price, cartQuantity } = props.item;
@@ -27,7 +30,7 @@ function Item(props) {
         </div>
         <div className="d-flex align-items-center dish-cart__price">
           <div>
-            <h4> {price}</h4>
+            <h4> {formatMoney(price)}</h4>
           </div>
         </div>
       </div>

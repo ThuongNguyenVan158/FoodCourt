@@ -22,6 +22,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   try {
     const customer1 = await Customer.findOne({
       where: { email },
@@ -107,7 +108,7 @@ const getDetailsCus = async (req, res) => {
   const { id } = req.params;
   const { user } = req;
   try {
-    if (user.id === id) {
+    if (user.id == id) {
       const detailCus = await Customer.findOne({
         where: { id },
       });

@@ -1,7 +1,7 @@
 [
     {
         "icon": "bx bx-user",
-        "route": "/profile",
+        "route": "/info",
         "content": "Hồ sơ"
     },
     {

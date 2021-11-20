@@ -1,11 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+const body = require("body-parser");
 import { sequelize } from "./models";
 import rootRouter from "./routers";
 import cors from "cors";
 dotenv.config();
 const app = express();
+app.use(body.json());
 app.use(express.json());
 app.use(cors());
 const publicPath = path.join(__dirname, "./public");
