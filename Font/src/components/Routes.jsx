@@ -11,7 +11,7 @@ import InfoAdmin from '../container/Admin/pages/infoadmin'
 import EditCategory from '../container/Admin/pages/UpdateCategory'
 import EditFood from '../container/Admin/pages/UpdateFood'
 
-const Routes = () => {
+const RoutesAdmin = () => {
     return (
         <Switch>
             <Route path='/' exact component={Revenue}/>
