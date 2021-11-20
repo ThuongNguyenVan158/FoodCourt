@@ -9,6 +9,7 @@ import {
   removeFood,
   updateFood,
   uploadImgFood,
+  getallfoodAsync,
 } from "../controllers/food.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
@@ -25,6 +26,7 @@ foodRouter.get("/getListFoodbyName", getListFoodbyName);
 foodRouter.get("/getListFoodByType", getListFoodByType);
 foodRouter.get("/getListFoodByPriceASC", getListFoodByPriceASC);
 foodRouter.get("/getListFoodByPriceDESC", getListFoodByPriceDESC);
+foodRouter.get("/getListFood", getallfoodAsync);
 foodRouter.put(
   "updateFood/:id",
   authenticate,
