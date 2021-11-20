@@ -1,18 +1,18 @@
 import express from "express";
 import {
-    addCate,
-    getallCategoryAsync,
-    updateCate,
-    removeCate,
-    getDetailCate,
+  addCate,
+  getallCategoryAsync,
+  updateCate,
+  removeCate,
+  getDetailCate,
 } from "../controllers/category.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
 const categoryRouter = express.Router();
 categoryRouter.post(
   "/addCategory",
-  authenticate,
-  authorizeUser(["admin", "superAdmin"]),
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
   addCate
 );
 
