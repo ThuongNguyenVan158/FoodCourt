@@ -50,6 +50,9 @@ export default function Categorys() {
     await axios.post(
       "http://localhost:5000/api/v1/category/addCategory",
       newCate
+      //   {headers: {
+      //       token: "jfasdfjdskl"
+      //   } }
     );
     alert("Thêm thành công");
     setnewCate({
