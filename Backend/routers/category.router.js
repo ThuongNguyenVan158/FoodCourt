@@ -18,7 +18,7 @@ categoryRouter.post(
 
 categoryRouter.get("/getListCategory", getallCategoryAsync);
 categoryRouter.put(
-  "updateCategory/:id",
+  "/updateCategory/:id",
   // authenticate,
   // authorizeUser(["admin", "superAdmin"]),
   updateCate

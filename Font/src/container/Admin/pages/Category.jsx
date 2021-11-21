@@ -7,7 +7,7 @@ export default function Categorys() {
   const [listcate, setCategory] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
-    limit: 6,
+    limit: 3,
     perpage: 4,
     start: 0,
     total: listcate.length,
@@ -44,6 +44,7 @@ export default function Categorys() {
     fetchListCategory();
   }, []);
   useEffect(() => {}, [listcate]);
+  
   const handleAdd = async (e) => {
     e.preventDefault();
     // e.target.reset();clear field input
@@ -148,59 +149,63 @@ export default function Categorys() {
               </button>
             </div>
             <div className="card__body">
-              <div className="table-wrapper">
-                <thead>
-                  <tr>
-                    <td className="td1">Mã danh mục</td>
-                    <td className="td1">Tên danh mục</td>
-                    <td className="td1">Url image</td>
-                    <td className="td1">Xoá / Sửa</td>
-                  </tr>
-                </thead>
+              <div>
                 <div className="table-wrapper">
-                  {listcate
-                    .slice(pagination.start, pagination.perpage)
-                    .map((item) => (
-                      <div className="table-wrapper">
-                        <tr key={item.index}>
-                          <td className="td1">{item.id}</td>
-                          <td className="td1">{item.name}</td>
-                          <td className="td1">{item.img_url}</td>
-                          <td className="td1">
-                            <button
-                              onClick={() => {
-                                const confirmBox = window.confirm(
-                                  "Bạn chắc chắn muốn xoá " + item.name
-                                );
-                                if (confirmBox === true) {
-                                  deleteRecord(item.id);
-                                }
-                              }}
-                            >
-                              {" "}
-                              <i
-                                className="far fa-trash-alt"
-                                style={{ fontSize: "18px", marginRight: "5px" }}
-                              ></i>{" "}
-                            </button>
-                            <Link
-                              className=" mr-2"
-                              to={`/editCategory/${item.id}`}
-                            >
-                              <i className="fa fa-edit" aria-hidden="true"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                      </div>
-                    ))}
-                </div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <td>Mã danh mục</td>
+                        <td>Tên danh mục</td>
+                        <td>Url image</td>
+                        <td>Xoá / Sửa</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {listcate
+                        .slice(pagination.start, pagination.perpage)
+                        .map((item) => (
+                            <tr key={item.index} style={{textAlign:"left"}}>
+                              <td>{item.id}</td>
+                              <td>{item.name}</td>
+                              <td>{item.img_url}</td>
+                              <td>
+                                <button
+                                  onClick={() => {
+                                    const confirmBox = window.confirm(
+                                      "Bạn chắc chắn muốn xoá " + item.name
+                                    );
+                                    if (confirmBox === true) {
+                                      deleteRecord(item.id);
+                                    }
+                                  }}
+                                >
+                                  {" "}
+                                  <i
+                                    className="far fa-trash-alt"
+                                    style={{ fontSize: "18px", marginRight: "5px" }}
+                                  ></i>{" "}
+                                </button>
+                                <Link
+                                  className=" mr-2"
+                                  to={`/editCategory/${item.id}`}
+                                >
+                                  <i className="fa fa-edit" aria-hidden="true"></i>
+                                </Link>
+                              </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  </div>
               </div>
-              <Pagination
-                pagination={pagination}
-                listCart={listcate}
-                setPagination={setPagination}
-              />
             </div>
+              <div className="locatepage col-6">
+                <Pagination
+                 pagination={pagination}
+                 listCart={listcate}
+                 setPagination={setPagination}
+                />
+              </div>
           </div>
         </div>
       </div>

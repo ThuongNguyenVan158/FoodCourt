@@ -17,8 +17,8 @@ import { uploadImage } from "../middlewares/Upload/upload-image";
 const foodRouter = express.Router();
 foodRouter.post(
   "/addFood",
-  authenticate,
-  authorizeUser(["admin", "superAdmin"]),
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
   addFood
 );
 foodRouter.get("/detail/:id", getDetailFood);
@@ -28,22 +28,22 @@ foodRouter.get("/getListFoodByPriceASC", getListFoodByPriceASC);
 foodRouter.get("/getListFoodByPriceDESC", getListFoodByPriceDESC);
 foodRouter.get("/getListFood", getallfoodAsync);
 foodRouter.put(
-  "updateFood/:id",
-  authenticate,
-  authorizeUser(["admin", "superAdmin"]),
+  "/updateFood/:id",
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
   updateFood
 );
 foodRouter.post(
   "/uploadImg/:id",
-  authenticate,
-  authorizeUser(["admin", "superAdmin"]),
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
   uploadImage("food-img"),
   uploadImgFood
 );
 foodRouter.delete(
   "/deleteFood/:id",
-  authenticate,
-  authorizeUser(["admin", "superAdmin"]),
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
   removeFood
 );
 export { foodRouter };

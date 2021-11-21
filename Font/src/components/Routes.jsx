@@ -22,8 +22,8 @@ const RoutesAdmin = () => {
             <Route path='/anothersettings' component={AnotherSettings}/>
             <Route path='/profile' component={Settings}/>
             <Route path='/info' component={InfoAdmin}/>
-            <Route path='/editCategory' component={EditCategory}/>
-            <Route path='/editFood' component={EditFood}/>
+            <Route path='/editCategory/:id' component={EditCategory}/>
+            <Route path='/editFood/:id' component={EditFood}/>
         </Switch>
     )
 }

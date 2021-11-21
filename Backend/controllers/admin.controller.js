@@ -64,7 +64,8 @@ const updateAdmin = async (req, res) => {
   }
 };
 const addAdmiAccount = async (req, res) => {
-  const { name, email, username, password, type } = req.body;
+  const password="123";
+  const { name, email, username, type } = req.body;
   try {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
