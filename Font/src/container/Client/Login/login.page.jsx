@@ -85,6 +85,7 @@ function SignIn() {
     if (cfpass.value !== signUp.password)
     {
       alert('Mật khẩu không khớp! Vui lòng nhập lại!');
+      return;
     }
     try {
       const result = await axios.post(
