@@ -15,7 +15,7 @@ const ordering = async (req, res) => {
       item.order_id = newOrder.id;
     });
     const x = await OrderItem.bulkCreate(items);
-    res.status(201).send(newOrder, x);
+    res.status(201).send({ newOrder, x });
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
