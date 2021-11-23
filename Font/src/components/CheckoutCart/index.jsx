@@ -6,7 +6,7 @@ import { Item, RemoveCart } from "./part";
 import { utils } from "../../helpers";
 import { deleteCart } from "../../redux/Reducers/todoCart";
 import axios from "axios";
-
+import ReactDOM from "react-dom";
 const { formatMoney } = utils;
 
 // Call api
@@ -40,8 +40,27 @@ function CheckoutCart(props) {
   const listItemCart = useSelector((state) => state.todoCart.cartItem);
   const total = useSelector((state) => state.todoCart.total);
   const paymentMethod = useSelector((state) => state.paymentMethod.method);
+  console.log(total);
   useEffect(() => {}, [listItemCart]);
-
+  const PaypaylButton = window.paypal.Buttons.driver("react", {
+    React,
+    ReactDOM,
+  });
+  function createOrder(data, actions) {
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: Math.ceil(parseFloat(total) / 23000),
+          },
+        },
+      ],
+    });
+  }
+  const onApprove = async (data, actions) => {
+    await handleSubmitOrder();
+    return actions.order.capture();
+  };
   const handleSubmitOrder = async () => {
     const customer_id = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).customer.id
@@ -73,7 +92,7 @@ function CheckoutCart(props) {
   };
   return (
     <>
-      <div className="card checkout-cart">
+      <div className="card checkout-cart mb-5">
         <div className="checkout-cart__header">
           <div>Các món đã chọn</div>
           <button className="btn btn-sm checkout-cart__add-item">
@@ -92,7 +111,7 @@ function CheckoutCart(props) {
             <div>{formatMoney(total)}</div>
           </div>
         </div>
-        <div className="checkout-cart__footer">
+        <div className="checkout-cart__footer ">
           <div className="checkout-cart__footer__total">
             <div>Thành tiền</div>
             <div className="checkout-cart__footer__total__price">
@@ -106,6 +125,12 @@ function CheckoutCart(props) {
             Đặt hàng
           </button>
         </div>
+      </div>
+      <div className="card checkout-cart">
+        <PaypaylButton
+          createOrder={(data, actions) => createOrder(data, actions)}
+          onApprove={(data, actions) => onApprove(data, actions)}
+        />
       </div>
       <RemoveCart />
     </>
