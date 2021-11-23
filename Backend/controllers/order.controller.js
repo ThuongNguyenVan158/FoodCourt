@@ -7,15 +7,17 @@ const ordering = async (req, res) => {
       total_amount,
       payment_method,
     });
+    var array = [];
     await items.forEach((element) => {
-      await OrderItem.create({
+      var item = await OrderItem.create({
         order_id: newOrder.id,
         quantity: element.quantity,
         total_amount: element.total_amount,
         food_id: element.food_id,
       });
+      array.push(item);
     });
-    res.status(201).send(newOrder);
+    res.status(201).send(newOrder, array);
   } catch (error) {
     res.status(500).send(error);
   }

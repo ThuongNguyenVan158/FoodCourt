@@ -48,7 +48,7 @@ const getDetailCate = async (req, res) => {
   const { id } = req.params;
   try {
     const cate = await category.findOne({ where: { id } });
-    res.status(200).send(food);
+    res.status(200).send(cate);
   } catch (error) {
     res.status(500).send(error);
   }
