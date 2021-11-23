@@ -22,7 +22,7 @@ customerRouter.get(
 );
 customerRouter.get(":/id", authenticate, getDetailsCus);
 customerRouter.put("/updateCus/:id", authenticate, updateCustomer);
-customerRouter.put("changePwd/:id", authenticate, changePassword);
+customerRouter.put("/changePwd/:id", authenticate, changePassword);
 customerRouter.delete(
   "/deleteCus/:id",
   authenticate,
