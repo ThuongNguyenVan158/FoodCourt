@@ -118,4 +118,17 @@ const getDetailsAdmin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin,getallEmployeeAsync,getDetailsAdmin};
+const resetPassword = async (req, res) => {
+  const { id } = req.params;
+  const { password, confirmnewpassword} = req.body;
+  const { user } = req;
+  try {
+    if (user.id == id) {
+      await Admin.update({ password }, { where: { id: id } });
+      res.status(200).send({ message: "Update successfully" });
+    } else res.status(403).send({ message: "Không thể cập nhật" });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin,getallEmployeeAsync,getDetailsAdmin,resetPassword};

@@ -3,18 +3,29 @@ import React,{useState} from 'react'
 const Settings = () => {
     const [passWord,setPassword] =useState({
         password:"",
-        newpassword:"",
         confirmnewpassword:"",
     });
+    const {password,confirmnewpassword} =passWord;
     const handleInputChange=(e)=>
     {
        e.preventDefault();
        let { name, value }=e.target;
        setPassword({...passWord,[name]: value });
-       console.log(passWord.password + "," + passWord.newpassword+", " + passWord.confirmnewpassword);
+       console.log(passWord.password+", " + passWord.confirmnewpassword);
     };
     const handleEdit=(e)=>{
         e.preventDefault();
+        if (passWord.confirmnewpassword !== passWord.password ||passWord.confirmnewpassword===""||passWord.password==="")
+        {
+        alert('Mật khẩu không khớp! Vui lòng nhập lại!');
+        setPassword(
+           {password:"",
+            confirmnewpassword:"",
+            }
+        );
+        return;
+        }
+
      };
     return (
         <div>
@@ -31,11 +42,15 @@ const Settings = () => {
                             <form>
                                  <div className="form-group">
                                      <lable>Mật khẩu mới</lable>
-                                     <input type="text" className="form-control" name="newpassword" onChange={handleInputChange}></input>
+                                     <input type="password" className="form-control" name="password" value={password} onChange={handleInputChange}
+                                     required
+                                     ></input>
                                  </div>
                                  <div className="form-group">
-                                    <lable>Nhập lại mật khẩu mới</lable>
-                                    <input type="text" className="form-control" name="confirmnewpassword" onChange={handleInputChange}></input>
+                                    <lable>Nhập lại mật khẩu</lable>
+                                    <input type="password" className="form-control" name="confirmnewpassword" value={confirmnewpassword} onChange={handleInputChange}
+                                     required
+                                    ></input>
                                 </div>
                                  <div className="row">
                                      <div className="col-12"> 
