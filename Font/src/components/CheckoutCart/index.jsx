@@ -1,25 +1,72 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import './CheckoutCart.scss';
 import { Item, RemoveCart } from './part';
 import { utils } from '../../helpers';
+import { deleteCart } from '../../redux/Reducers/todoCart';
+import axios from 'axios';
 
 const { formatMoney } = utils;
 
+// Call api
+const createPayment = async (body) => {
+  try {
+    const { data } = await axios({
+      method: 'POST',
+      url: 'http://localhost:5000/api/v1/order/order',
+      data: body,
+    });
+    return {
+      errCode: data.errCode,
+      errDetail: data.errDetail,
+      result: data.data,
+    };
+  } catch (error) {
+    return {
+      errCode: 1,
+      errDetail: 'System error',
+      result: null,
+    };
+  }
+};
+
 function CheckoutCart(props) {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const listItemCart = useSelector((state) => state.todoCart.cartItem);
   const total = useSelector((state) => state.todoCart.total);
   const paymentMethod = useSelector((state) => state.paymentMethod.method);
   useEffect(() => {}, [listItemCart]);
 
-  const handleSubmitOrder = () => {
-    const orderPayment = {
-      listItemCart,
-      total,
-      paymentMethod,
-    };
-    console.log('Order Payment: ', orderPayment);
+  const handleSubmitOrder = async () => {
+    const customer_id = localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user')).customer.id
+      : null;
+    if (customer_id) {
+      const items = listItemCart.map((item) => {
+        return {
+          quantity: item.cartQuantity,
+          total_amount: item.totalPriceItem,
+          food_id: item.id,
+        };
+      });
+      const numItems = listItemCart.length;
+      const data = {
+        items,
+        customer_id,
+        total_amount: total,
+        payment_method: paymentMethod,
+        numItems,
+      };
+      console.log('Order Payment: ', data);
+      const { errCode, errDetail } = await createPayment(data);
+      if (errCode) {
+        return alert(errDetail);
+      }
+      dispatch(deleteCart());
+      return history.push('/');
+    } else alert('Vui lòng đăng nhập!');
   };
   return (
     <>
