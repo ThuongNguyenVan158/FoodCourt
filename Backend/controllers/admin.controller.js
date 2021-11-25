@@ -65,35 +65,9 @@ const updateAdmin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-const changePassword = async (req, res) => {
-  const { password } = req.body;
-  const { id } = req.params;
-  const { user } = req;
-  try {
-    if (user.id == id) {
-      const salt = bcrypt.genSaltSync(10);
-      const hashPassword = bcrypt.hashSync(password, salt);
-      await Customer.update(
-        {
-          password: hashPassword,
-        },
-        {
-          where: {
-            id,
-          },
-        }
-      );
-      const newAdmin = await Admin.findOne({ where: { id } });
-      res.status(200).send({ message: "Change successfully", newAdmin });
-    } else {
-      res.status(403).send({ message: "Lỗi xác thực" });
-    }
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+
 const addAdmiAccount = async (req, res) => {
-  const password="123";
+  const password = "123";
   const { name, email, username, type } = req.body;
   try {
     const salt = bcrypt.genSaltSync(10);
@@ -175,4 +149,12 @@ const resetPassword = async (req, res) => {
     res.status(500).send(error);
   }
 };
-export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin,getallEmployeeAsync,getDetailsAdmin,resetPassword};
+export {
+  loginAdmin,
+  updateAdmin,
+  addAdmiAccount,
+  removeAdmin,
+  getallEmployeeAsync,
+  getDetailsAdmin,
+  resetPassword,
+};

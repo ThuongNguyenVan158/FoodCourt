@@ -25,12 +25,6 @@ adminRouter.put(
   authorizeUser(["admin, superAdmin"]),
   updateAdmin
 );
-adminRouter.put(
-  "/updatePass/:id",
-  authenticate,
-  authorizeUser(["admin, superAdmin"]),
-  changePassword
-);
 adminRouter.post(
   "/addAdmin",
   authenticate,
@@ -49,7 +43,7 @@ adminRouter.get("/detailAdmin/:id", getDetailsAdmin);
 adminRouter.put(
   "/updatePass/:id",
   authenticate,
-  authorizeUser(["admin, superAdmin"]),
+  authorizeUser(["admin", "superAdmin"]),
   resetPassword
 );
 export { adminRouter };
