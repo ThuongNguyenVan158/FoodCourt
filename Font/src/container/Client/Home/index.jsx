@@ -5,7 +5,23 @@ import FoodList from '../../../components/FoodList';
 import Slide from '../../../components/Slider';
 import Banner from '../../../components/Banner';
 import SearchFood from '../../../components/Search';
+
+import { useDispatch } from 'react-redux';
+import { setLoginAction } from '../../../redux/Reducers/loginUser';
+
 export default function HomePage() {
+
+  const dispatch = useDispatch();
+
+  if (localStorage.getItem('user'))
+  {
+    const payload =  {
+      isLogin: true,
+      userInfo: JSON.parse(localStorage.getItem('user')).customer,
+    }
+    dispatch(setLoginAction(payload));
+  }
+
   return (
     <div style={{ backgroundColor: '#faf7f2' }}>
       <Container className="mt-5 mb-5 ">

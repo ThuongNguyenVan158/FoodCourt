@@ -1,27 +1,27 @@
 import { Order, OrderItem, Customer } from "../models";
 const ordering = async (req, res) => {
   const { customer_id, items, total_amount, payment_method } = req.body;
+  const today = new Date();
+  const order_date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   try {
     const newOrder = await Order.create({
-      customer_id,
-      total_amount,
-      payment_method,
+      customer_id: customer_id,
+      order_date: order_date,
+      total_amount: total_amount,
+      payment_method: payment_method,
     });
-    var array = [];
-    await items.forEach((element) => {
-      var item = await OrderItem.create({
-        order_id: newOrder.id,
-        quantity: element.quantity,
-        total_amount: element.total_amount,
-        food_id: element.food_id,
-      });
-      array.push(item);
+    items.forEach((item) => {
+      item.order_id = newOrder.id;
     });
-    res.status(201).send(newOrder, array);
+    const x = await OrderItem.bulkCreate(items);
+    res.status(201).send({ newOrder, x });
   } catch (error) {
+    console.error(error);
     res.status(500).send(error);
   }
 };
+
 const viewListOrder = async (req, res) => {
   try {
     const list = await Order.findAll({

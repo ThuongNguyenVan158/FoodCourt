@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 const EditCategory =()=>{
     let history = useHistory(); //The useHistory hook gives you access to the history instance that you may use to navigate.
     const { id } = useParams();
-    const initcate= axios.get(`http://localhost:5000/api/v1/category/detail/${id}`);
+    console.log(id);
     const [newCate,setnewCate]=useState(
         {  
            name: "",
@@ -14,24 +14,32 @@ const EditCategory =()=>{
        const {name,img_url} =newCate;
       const handelupdateCategory = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:5000/api/v1/category/updateCategory/${id}`, newCate);
+        console.log(newCate);
+        await axios.put(`http://localhost:5000/api/v1/category/updateCategory/${id}`, newCate,
+        {
+          headers: {
+            token: JSON.parse(localStorage.getItem('admin')).token,
+          }
+        },
+        );
+        alert("Cập nhật thành công");
+        setnewCate({
+            name: "",
+            img_url: "",
+        })
         history.push("/categorys");
       };
      
-      const loadnewCate =  () => {
-        fetch(`http://localhost:5000/api/v1/category/detail/${id}`,{
-                method: "GET",
-              })
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log(result);
-                setnewCate({
-                        id: id,
-                        update: true,
-                        name: result.response[0].name,    
-                    });
-                })
-                .catch((error) => console.log("error", error));
+      const loadnewCate =  async () => {
+        try {
+            const res = await axios.get(
+              `http://localhost:5000/api/v1/category/detail/${id}`
+            );
+            setnewCate(res.data);
+            console.log(res.data);
+          } catch (error) {
+            console.log("fail to get category", error.message);
+          }
       };
       useEffect(() => {
         loadnewCate();
@@ -41,7 +49,7 @@ const EditCategory =()=>{
            e.preventDefault();
            let { name, value }=e.target;
            setnewCate({...newCate,[name]: value });
-           console.log(newCate.id + "," + newCate.name+", " + newCate.img_url);
+           console.log(id + "," + newCate.name+", " + newCate.img_url);
         };
       return(
         <div className="row">
@@ -54,7 +62,7 @@ const EditCategory =()=>{
                     <form action="" autoComplete="off"> 
                         <div className="form-group">
                             <lable>Mã danh mục</lable>
-                            <input type="number" className="form-control" name="id" value={id} onChange={handleInputChange}></input>
+                            <input type="number" className="form-control" name="id" value={id} onChange={handleInputChange} readOnly></input>
                         </div>
                         <div className="form-group">
                             <lable>Tên danh mục</lable>
