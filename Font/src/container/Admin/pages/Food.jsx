@@ -37,7 +37,12 @@ const Foods = () => {
     const handleAdd= async(e)=>{
        e.preventDefault();
        await axios.post(
-        `http://localhost:5000/api/v1/food/addFood`,newFood
+        `http://localhost:5000/api/v1/food/addFood`,newFood,
+        {
+            headers: {
+              token: JSON.parse(localStorage.getItem('admin')).token,
+            }
+          },
       );
       alert("Thêm thành công");
       setnewFood({
@@ -87,7 +92,13 @@ const Foods = () => {
 
     const deleteRecord = async (id) =>
         {
-         await axios.delete(`http://localhost:5000/api/v1/food/deleteFood/${id}`)
+         await axios.delete(`http://localhost:5000/api/v1/food/deleteFood/${id}`,
+         {
+            headers: {
+              token: JSON.parse(localStorage.getItem('admin')).token,
+            }
+          },
+         )
           .then((result)=>{
             alert('Xoá thành công');
             fetchListFood();
@@ -125,6 +136,10 @@ const Foods = () => {
                                     <div className="form-group">
                                         <lable>UrlImage</lable>
                                         <input type="text" className="form-control" name="food_img" value={food_img} onChange={handleInputChange}></input>
+                                    </div> 
+                                    <div className="form-group">
+                                        <lable>FoodImage</lable>
+                                        <input type="file" className="form-control" name="food_img" accept=".pnd,.jpg"></input>
                                     </div> 
                                     <div className="form-group">
                                         <lable>Giá</lable>

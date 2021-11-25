@@ -2,7 +2,18 @@ import React,{useState,useEffect} from "react";
 import axios from "axios";
 import "./style.css";
 import Pagination from "../../../components/Pagination";
-
+const listType=[
+  {
+    id:1,
+    type: "admin",
+    name: "Quản trị viên",
+  },
+  {
+    id:2,
+    type: "nhanvien",
+    name: "Nhân viên",
+  },
+];
 const Accounts = () => {
   const [listAccount,setlistAccount]=useState([]);
   const [account,setAccount] = useState({
@@ -28,19 +39,28 @@ const Accounts = () => {
      e.preventDefault();
      let { name, value }=e.target;
      setAccount({...account,[name]: value });
-     console.log(account.username + "," + account.name+", " + account.type+", " + account.email );
+     console.log(account.username + "," + account.name+"," + account.type+"," + account.email );
   };
 
   const handleAdd = async (e) => {
+    console.log(account);
+    console.log(account.type+" fail rồi");
     e.preventDefault();
     await axios.post(
-      "http://localhost:5000/api/v1/security/admin//addAdmin",
-      account
+      "http://localhost:5000/api/v1/security/admin/addAdmin",
+      account,
+      {
+        headers: {
+          token: JSON.parse(localStorage.getItem('admin')).token,
+        }
+      },
     );
-    alert("Thêm thành công");
+    alert("Thêm thành công. Mật khẩu mặc định là 123");
     setAccount({
-      name: "",
-      img_url: "",
+      username:"",
+      name:"",
+      type:"",
+      email:"",
     });
     fetchListAccount();
   };
@@ -63,7 +83,13 @@ const Accounts = () => {
  useEffect(() => {}, [listAccount]);
  const deleteRecord = (id) =>
  {
-   axios.delete(`http://localhost:5000/api/v1/security/admin/deleteAdmin/${id}`)
+   axios.delete(`http://localhost:5000/api/v1/security/admin/deleteAdmin/${id}`,
+   {
+    headers: {
+      token: JSON.parse(localStorage.getItem('admin')).token,
+    }
+  },
+   )
    .then((result)=>{
     fetchListAccount();
     alert('Xoá thành công!');
@@ -94,8 +120,12 @@ const Accounts = () => {
                 <div className="form-group">
                   <lable>Loại tài khoản</lable>
                   <select className="form-control" name="type" value={type} onChange={handleInputChange}>
-                    <option value="admin">1-Quản trị viên</option>
-                    <option value="nhanvien">2-Nhân viên</option>
+                    {
+                      listType.map((item)=> {
+                         return(<option key={item.id} value={item.type}>
+                                {item.name}
+                                </option>);})
+                    }
                   </select>
                 </div>
                 <div className="form-group">

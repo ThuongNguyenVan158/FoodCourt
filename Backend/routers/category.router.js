@@ -11,16 +11,16 @@ import { authorizeUser } from "../middlewares/Auth/authorize";
 const categoryRouter = express.Router();
 categoryRouter.post(
   "/addCategory",
-  // authenticate,
-  // authorizeUser(["admin", "superAdmin"]),
+  authenticate,
+  authorizeUser(["admin", "superAdmin"]),
   addCate
 );
 
 categoryRouter.get("/getListCategory", getallCategoryAsync);
 categoryRouter.put(
   "/updateCategory/:id",
-  // authenticate,
-  // authorizeUser(["admin", "superAdmin"]),
+  authenticate,
+  authorizeUser(["admin", "superAdmin"]),
   updateCate
 );
 // categoryRouter.post(
@@ -32,8 +32,8 @@ categoryRouter.put(
 // );
 categoryRouter.delete(
   "/deleteCategory/:id",
-  // authenticate,
-  // authorizeUser(["admin", "superAdmin"]),
+  authenticate,
+  authorizeUser(["admin", "superAdmin"]),
   removeCate
 );
 categoryRouter.get("/detail/:id", getDetailCate);

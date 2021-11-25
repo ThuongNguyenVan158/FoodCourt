@@ -1,6 +1,9 @@
+import axios from 'axios';
 import React,{useState} from 'react'
+import { useHistory } from 'react-router';
 
 const Settings = () => {
+    const history=useHistory();
     const [passWord,setPassword] =useState({
         password:"",
         confirmnewpassword:"",
@@ -13,7 +16,9 @@ const Settings = () => {
        setPassword({...passWord,[name]: value });
        console.log(passWord.password+", " + passWord.confirmnewpassword);
     };
-    const handleEdit=(e)=>{
+    const data =JSON.parse(localStorage.getItem('admin')).admin;
+    console.log(data.id);
+    const handleEdit= async (e)=>{
         e.preventDefault();
         if (passWord.confirmnewpassword !== passWord.password ||passWord.confirmnewpassword===""||passWord.password==="")
         {
@@ -22,10 +27,28 @@ const Settings = () => {
            {password:"",
             confirmnewpassword:"",
             }
-        );
+            );
         return;
         }
-
+        try{
+        await axios.put(`http://localhost:5000/api/v1/security/admin/updatePass/${data.id}`,passWord,
+        {
+            headers: {
+              token: JSON.parse(localStorage.getItem('admin')).token,
+            }
+        },
+        )
+        alert("Cập nhật thành công");
+        setPassword({
+            password:"",
+            confirmnewpassword:"",
+            })
+        history.push('/');
+        }
+        catch(err){
+            alert("Thay đổi mật khẩu không thành công!")
+        }
+        
      };
     return (
         <div>

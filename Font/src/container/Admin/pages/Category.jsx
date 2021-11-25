@@ -50,7 +50,12 @@ export default function Categorys() {
     // e.target.reset();clear field input
     await axios.post(
       "http://localhost:5000/api/v1/category/addCategory",
-      newCate
+      newCate, 
+      {
+        headers: {
+          token: JSON.parse(localStorage.getItem('admin')).token,
+        }
+    },
     );
     alert("Thêm thành công");
     setnewCate({
@@ -70,7 +75,13 @@ export default function Categorys() {
   };
   const deleteRecord = async (id) => {
     await axios
-      .delete(`http://localhost:5000/api/v1/category/deleteCategory/${id}`)
+      .delete(`http://localhost:5000/api/v1/category/deleteCategory/${id}`,
+      {
+        headers: {
+          token: JSON.parse(localStorage.getItem('admin')).token,
+        }
+      },
+      )
       .then((res) => {
         setCategory(res.data);
       })
@@ -109,6 +120,10 @@ export default function Categorys() {
                     onChange={handleInputChange}
                   />
                 </div>
+                <div className="form-group">
+                    <lable>CategoryImage</lable>
+                    <input type="file" className="form-control" name="food_img" accept=".png,.jpg"></input>
+                </div> 
                 <div className="row">
                   <div className="col-12">
                     <button

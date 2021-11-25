@@ -40,7 +40,13 @@ const Foods = () => {
       const handelupdateFood = async (e) => {
         e.preventDefault();
         console.log(newFood);
-        await axios.put(`http://localhost:5000/api/v1/food/updateFood/${id}`, newFood);
+        await axios.put(`http://localhost:5000/api/v1/food/updateFood/${id}`, newFood,
+        {
+            headers: {
+              token: JSON.parse(localStorage.getItem('admin')).token,
+            }
+          },
+        );
         alert("Cập nhật thành công");
         setnewFood({
             name:"",

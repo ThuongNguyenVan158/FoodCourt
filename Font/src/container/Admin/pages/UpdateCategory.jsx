@@ -15,7 +15,13 @@ const EditCategory =()=>{
       const handelupdateCategory = async (e) => {
         e.preventDefault();
         console.log(newCate);
-        await axios.put(`http://localhost:5000/api/v1/category/updateCategory/${id}`, newCate);
+        await axios.put(`http://localhost:5000/api/v1/category/updateCategory/${id}`, newCate,
+        {
+          headers: {
+            token: JSON.parse(localStorage.getItem('admin')).token,
+          }
+        },
+        );
         alert("Cập nhật thành công");
         setnewCate({
             name: "",
