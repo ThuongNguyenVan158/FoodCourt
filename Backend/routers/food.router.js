@@ -35,8 +35,8 @@ foodRouter.put(
 );
 foodRouter.post(
   "/uploadImg/:id",
-  // authenticate,
-  // authorizeUser(["admin", "superAdmin"]),
+  authenticate,
+  authorizeUser(["admin", "superAdmin"]),
   uploadImage("food-img"),
   uploadImgFood
 );

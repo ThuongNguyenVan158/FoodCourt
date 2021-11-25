@@ -275,14 +275,13 @@ const Foods = () => {
                                   }
                                 }}
                               >
-                                {" "}
                                 <i
                                   className="far fa-trash-alt"
                                   style={{
                                     fontSize: "18px",
                                     marginRight: "5px",
                                   }}
-                                ></i>{" "}
+                                ></i>
                               </button>
                               <Link
                                 className=" mr-2"
