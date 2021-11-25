@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+if (localStorage.getItem('user'))
+{
+    var checkLogin = true;
+    var userInfo = JSON.parse(localStorage.getItem('user')).customer;
+}
+
 export const loginUserSlice = createSlice ({
     name: 'login',
     initialState: {
-        isLogin: false,
-        userInfo: {},
+        isLogin: checkLogin,
+        userInfo: userInfo,
     },
     reducers: {
         setLoginAction: (state, action) => {
