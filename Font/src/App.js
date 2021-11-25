@@ -1,8 +1,9 @@
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import RoutesAdmin from "./components/Routes";
+import AdminTemplate from "./container/Admin";
+import SignInSide from "./container/Admin/pages/LoginAdmin";
 import HomeTemplate from "./container/Client";
-import { RouteHome } from "./routers";
+import { RouteHome, RouteAdmin } from "./routers";
 function App() {
   const showLayoutHome = (routes) => {
     if (routes && routes.length > 0) {
@@ -18,11 +19,28 @@ function App() {
       });
     }
   };
+  const showLayoutAdmin = (routes) => {
+    if (routes.length > 0 && routes) {
+      return routes.map((item, index) => {
+        return (
+          <AdminTemplate
+            key={index}
+            exact={item.exact}
+            path={item.path}
+            component={item.component}
+          />
+        );
+      });
+    }
+  };
   return (
     <div>
       <BrowserRouter>
         <Switch>{showLayoutHome(RouteHome)}</Switch>
-        {/* <RoutesAdmin /> */}
+        <Switch>{showLayoutAdmin(RouteAdmin)}</Switch>
+        <Switch>
+          <Route exact={true} path="/admin/login" component={SignInSide} />
+        </Switch>
       </BrowserRouter>
     </div>
   );

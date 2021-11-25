@@ -1,12 +1,12 @@
 [
-    {
-        "icon": "bx bx-user",
-        "route": "/info",
-        "content": "Hồ sơ"
-    },
-    {
-        "icon": "bx bx-log-out-circle bx-rotate-180",
-        "route": "/logout",
-        "content": "Đăng xuất"
-    }
+  {
+    "icon": "bx bx-user",
+    "route": "/info",
+    "content": "Hồ sơ"
+  },
+  {
+    "icon": "bx bx-log-out-circle bx-rotate-180",
+    "route": "/admin/login",
+    "content": "Đăng xuất"
+  }
 ]
