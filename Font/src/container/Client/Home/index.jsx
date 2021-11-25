@@ -24,7 +24,7 @@ export default function HomePage() {
 
   return (
     <div style={{ backgroundColor: '#faf7f2' }}>
-      <Container className="mt-5 mb-5 ">
+      <Container className="pt-5 pb-5 ">
         <Banner />
         <div className="row">
           <div className="col-lg-4">

@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import "./CheckoutCart.scss";
-import { Item, RemoveCart } from "./part";
-import { utils } from "../../helpers";
-import { deleteCart } from "../../redux/Reducers/todoCart";
-import axios from "axios";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import './CheckoutCart.scss';
+import { Item, RemoveCart } from './part';
+import { utils } from '../../helpers';
+import { deleteCart } from '../../redux/Reducers/todoCart';
+import axios from 'axios';
+import ReactDOM from 'react-dom';
 const { formatMoney } = utils;
 
 // Call api
 const createPayment = async (body) => {
   try {
     const { data } = await axios({
-      method: "POST",
-      url: "http://localhost:5000/api/v1/order/order",
+      method: 'POST',
+      url: 'http://localhost:5000/api/v1/order/order',
       data: body,
       headers: {
-        token: JSON.parse(localStorage.getItem("user")).token,
+        token: JSON.parse(localStorage.getItem('user')).token,
       },
     });
     return {
@@ -28,7 +28,7 @@ const createPayment = async (body) => {
   } catch (error) {
     return {
       errCode: 1,
-      errDetail: "System error",
+      errDetail: 'System error',
       result: null,
     };
   }
@@ -40,9 +40,10 @@ function CheckoutCart(props) {
   const listItemCart = useSelector((state) => state.todoCart.cartItem);
   const total = useSelector((state) => state.todoCart.total);
   const paymentMethod = useSelector((state) => state.paymentMethod.method);
-  console.log(total);
+  console.log('payment-method: ', paymentMethod);
+  const [openPaypal, setOpenPaypal] = useState(false);
   useEffect(() => {}, [listItemCart]);
-  const PaypaylButton = window.paypal.Buttons.driver("react", {
+  const PaypaylButton = window.paypal.Buttons.driver('react', {
     React,
     ReactDOM,
   });
@@ -62,8 +63,8 @@ function CheckoutCart(props) {
     return actions.order.capture();
   };
   const handleSubmitOrder = async () => {
-    const customer_id = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).customer.id
+    const customer_id = localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user')).customer.id
       : null;
     if (customer_id) {
       const items = listItemCart.map((item) => {
@@ -81,14 +82,22 @@ function CheckoutCart(props) {
         payment_method: paymentMethod,
         numItems,
       };
-      console.log("Order Payment: ", data);
       const { errCode, errDetail } = await createPayment(data);
       if (errCode) {
         return alert(errDetail);
       }
       dispatch(deleteCart());
-      return history.push("/");
-    } else alert("Vui lòng đăng nhập!");
+      alert('Thanh toán thành công');
+      return history.push('/');
+    } else alert('Vui lòng đăng nhập!');
+  };
+
+  const handleCheckPaymentMethod = () => {
+    if (paymentMethod === 'paypal') {
+      setOpenPaypal(true);
+    } else {
+      handleSubmitOrder();
+    }
   };
   return (
     <>
@@ -120,18 +129,21 @@ function CheckoutCart(props) {
           </div>
           <button
             className="btn checkout-cart__footer__btn"
-            onClick={handleSubmitOrder}
+            onClick={handleCheckPaymentMethod}
+            disabled={(openPaypal && paymentMethod === 'paypal') || total === 0}
           >
             Đặt hàng
           </button>
         </div>
       </div>
-      <div className="card checkout-cart">
-        <PaypaylButton
-          createOrder={(data, actions) => createOrder(data, actions)}
-          onApprove={(data, actions) => onApprove(data, actions)}
-        />
-      </div>
+      {openPaypal && paymentMethod === 'paypal' && (
+        <div className="card checkout-cart">
+          <PaypaylButton
+            createOrder={(data, actions) => createOrder(data, actions)}
+            onApprove={(data, actions) => onApprove(data, actions)}
+          />
+        </div>
+      )}
       <RemoveCart />
     </>
   );
