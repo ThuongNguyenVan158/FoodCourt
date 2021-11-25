@@ -1,7 +1,7 @@
 import { Admin } from "../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import {v4 as uuid} from "uuid"
+import { v4 as uuid } from "uuid";
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
@@ -58,8 +58,36 @@ const updateAdmin = async (req, res) => {
   try {
     if (user.id == id) {
       await Admin.update({ name, email, username }, { where: { id: id } });
-      res.status(200).send({ message: "Update successfully" });
+      const newAdmin = await Admin.findOne({ where: { id } });
+      res.status(200).send({ message: "Update successfully", newAdmin });
     } else res.status(403).send({ message: "Không thể cập nhật" });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const changePassword = async (req, res) => {
+  const { password } = req.body;
+  const { id } = req.params;
+  const { user } = req;
+  try {
+    if (user.id == id) {
+      const salt = bcrypt.genSaltSync(10);
+      const hashPassword = bcrypt.hashSync(password, salt);
+      await Customer.update(
+        {
+          password: hashPassword,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      const newAdmin = await Admin.findOne({ where: { id } });
+      res.status(200).send({ message: "Change successfully", newAdmin });
+    } else {
+      res.status(403).send({ message: "Lỗi xác thực" });
+    }
   } catch (error) {
     res.status(500).send(error);
   }
@@ -95,10 +123,9 @@ const removeAdmin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-const getallEmployeeAsync = async(req,res)=>
-{
+const getallEmployeeAsync = async (req, res) => {
   try {
-    const listAccount = await Admin.findAll()
+    const listAccount = await Admin.findAll();
     res.status(200).send(listAccount);
   } catch (error) {
     res.status(500).send(error);

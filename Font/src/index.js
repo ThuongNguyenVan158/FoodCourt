@@ -31,7 +31,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 reportWebVitals();
-
 // import React from "react";
 // import ReactDOM from "react-dom";
 // import "./index.css";

@@ -1,7 +1,6 @@
 import JsonWebToken from "jsonwebtoken";
 const authenticate = (req, res, next) => {
   const token = req.header("token");
-
   try {
     const decode = JsonWebToken.verify(token, process.env.ACCESS_TOKEN_SECRET);
     if (decode) {

@@ -19,6 +19,18 @@ adminRouter.put(
   authorizeUser(["admin, superAdmin"]),
   updateAdmin
 );
+adminRouter.put(
+  "/updateAdmin/:id",
+  authenticate,
+  authorizeUser(["admin, superAdmin"]),
+  updateAdmin
+);
+adminRouter.put(
+  "/updatePass/:id",
+  authenticate,
+  authorizeUser(["admin, superAdmin"]),
+  changePassword
+);
 adminRouter.post(
   "/addAdmin",
   authenticate,
