@@ -21,6 +21,7 @@ export default function FoodList() {
   useEffect(() => {
     console.log("ListCart: ", listCart);
   }, [loading]);
+  useEffect(() => {}, [listCart]);
 
   return loading === true ? (
     <div className="flex-wrap mt-5 d-flex justify-content-between align-item-center ">
