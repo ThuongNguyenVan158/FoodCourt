@@ -1,26 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
+import { fetchCart } from "../../redux/Reducers/todoCart";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCart } from "../../redux/Reducers/todoCart";
 import axios from "axios";
+
 export default function SortingFood() {
   const listCart = useSelector((state) => state.todoCart.listCart);
   const dispatch = useDispatch();
   const [age, setAge] = React.useState("");
   const handleChange = async (event) => {
     event.preventDefault();
-    if (event.target.value == "SortASC") {
+    if(event.target.value == ""){
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/food/getListFoodbyName"
+      );
+      dispatch(fetchCart(res.data));
+    }
+    else if(event.target.value == "SortASC"){
       const res = await axios.get(
         "http://localhost:5000/api/v1/food/getListFoodByPriceASC"
       );
       dispatch(fetchCart(res.data));
-    } else if (event.target.value == "") {
+    }
+    else if(event.target.value == "SortDESC"){
       const res = await axios.get(
-        "http://localhost:5000/api/v1/food/getListFoodbyName"
+        "http://localhost:5000/api/v1/food/getListFoodByPriceDESC"
       );
       dispatch(fetchCart(res.data));
     }
@@ -34,7 +41,7 @@ export default function SortingFood() {
           value={age}
           onChange={handleChange}
           displayEmpty
-          defaultValue="Default"
+          defaultValue = "Default"
           inputProps={{ "aria-label": "Without label" }}
         >
           <MenuItem value="">
