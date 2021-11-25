@@ -108,7 +108,7 @@ const getDetailsCus = async (req, res) => {
   const { id } = req.params;
   const { user } = req;
   try {
-    if (user.id === id) {
+    if (user.id == id) {
       const detailCus = await Customer.findOne({
         where: { id },
       });
@@ -120,10 +120,11 @@ const getDetailsCus = async (req, res) => {
   }
 };
 const changePassword = async (req, res) => {
+  const { password } = req.body;
   const { id } = req.params;
   const { user } = req;
   try {
-    if (user.id === id) {
+    if (user.id == id) {
       const salt = bcrypt.genSaltSync(10);
       const hashPassword = bcrypt.hashSync(password, salt);
       await Customer.update(

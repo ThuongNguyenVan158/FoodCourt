@@ -2,16 +2,18 @@ import { Op } from "sequelize";
 import { Food, category } from "../models";
 
 const addFood = async (req, res) => {
-  const { name, type, description, price } = req.body;
+  const { name,category_id,food_img, description, price,active } = req.body;
   const quantity_order = 0;
-  console.log(name, type, description, price, quantity_order);
+  console.log(name,category_id,food_img, description, price, quantity_order);
   try {
     const newFood = await Food.create({
       name,
       category_id,
+      food_img,
       description,
       price,
       quantity_order,
+      active,
     });
     res.status(201).send(newFood);
   } catch (error) {
@@ -92,10 +94,10 @@ const getListFoodByType = async (req, res) => {
 };
 
 const updateFood = async (req, res) => {
-  const { name, type, description, price } = req.body;
+  const { name,category_id,food_img,price,description,active} = req.body;
   const { id } = req.params;
   try {
-    await Food.update({ name, type, description, price }, { where: { id } });
+    await Food.update({ name,category_id,food_img,price,description,active }, { where: { id } });
     res.status(200).send("Update successfully");
   } catch (error) {
     res.status(500).send(error);
@@ -105,7 +107,9 @@ const updateFood = async (req, res) => {
 const removeFood = async (req, res) => {
   const { id } = req.params;
   try {
-    await Food.destroy(id);
+    await Food.destroy({
+      where: { id: id },
+    });
     res.status(200).send("Delete successfully");
   } catch (error) {
     res.status(500).send(error);

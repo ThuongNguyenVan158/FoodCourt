@@ -1,8 +1,5 @@
 .table-wrapper {
     overflow-y: auto;
-    width: 100%;
-min-width: 400px;
-border-spacing: 0;
 }
 
 table {
@@ -18,30 +15,22 @@ thead {
 tr {
     text-align: left;
 }
-.tr1{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
 
 th,
 td {
     text-transform: capitalize;
     padding: 15px 10px;
 }
-.td1{
-    text-transform: capitalize;
-padding: 15px 10px;
-}
+
 tbody > tr:hover {
     background-color: var(--main-color);
     color: var(--txt-white);
 }
-
+.locatepage{
+    margin-right: 150px;
+    position: relative;
+    right: 325px;
+}
 .table__pagination {
     display: flex;
     width: 100%;

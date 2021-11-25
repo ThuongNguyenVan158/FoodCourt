@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   number: 0,
   cartItem: [],
@@ -6,7 +6,7 @@ const initialState = {
   total: 0,
 };
 const todoCart = createSlice({
-  name: "todos",
+  name: 'todos',
   initialState,
   reducers: {
     fetchCart: (state, action) => {
@@ -39,9 +39,9 @@ const todoCart = createSlice({
       state.cartItem[itemsIndex].cartQuantity -= 1;
       state.number -= 1;
       state.total -= state.cartItem[itemsIndex].price;
-      if (state.cartItem[itemsIndex].cartQuantity == 0) {
+      if (state.cartItem[itemsIndex].cartQuantity === 0) {
         state.cartItem = state.cartItem.filter(
-          (item) => item.id != action.payload.id
+          (item) => item.id !== action.payload.id
         );
       } else {
         state.cartItem[itemsIndex].totalPriceItem -=
@@ -55,12 +55,19 @@ const todoCart = createSlice({
       state.number -= state.cartItem[itemsIndex].cartQuantity;
       state.total -= state.cartItem[itemsIndex].totalPriceItem;
       state.cartItem = state.cartItem.filter(
-        (item) => item.id != action.payload.id
+        (item) => item.id !== action.payload.id
       );
+    },
+    deleteCart(state, action) {
+      // Delete cart when click "Xoa don hang"
+      state.number = 0;
+      state.total = 0;
+      state.cartItem = [];
     },
   },
 });
 
 const { actions, reducer } = todoCart;
-export const { addToCart, removeCart, fetchCart, decreaseCart } = actions;
+export const { addToCart, removeCart, fetchCart, decreaseCart, deleteCart } =
+  actions;
 export default reducer;

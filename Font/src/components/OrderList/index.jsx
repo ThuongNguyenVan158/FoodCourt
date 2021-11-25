@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import "./style.css";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import TotalItemOrder from "../TotalItemOrder";
 import OrderItem from "../OrderItem";
+import TotalItemOrder from "../TotalItemOrder";
+import "./style.css";
 export default function OrderList() {
   const CartItem = useSelector((state) => state.todoCart.cartItem);
   // const [state, setState] = useState(CartItem);
@@ -15,15 +15,15 @@ export default function OrderList() {
           <div className="row justify-content-center">
             <div className="col-lg-12">
               <div className="table-responsive mb-4">
-                <table className="table table-bordered">
+                <table className="table">
                   <thead>
                     <tr>
                       <th className="blank" />
                       <th className="blank" />
-                      <th className="title-name">Product</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Quantity</th>
-                      <th>Total Price</th>
+                      <th className="title-name">Sản phẩm</th>
+                      <th scope="col">Giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th>Tổng tiền</th>
                     </tr>
                   </thead>
                   <tbody>

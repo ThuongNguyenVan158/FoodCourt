@@ -7,11 +7,9 @@ table {
     min-width: 400px;
     border-spacing: 0;
 }
-
 thead {
     background-color: var(--second-bg);
 }
-
 tr {
     text-align: left;
 }

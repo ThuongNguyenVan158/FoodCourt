@@ -1,7 +1,15 @@
-import React from 'react';
-import './PaymentMethod.scss';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { changePaymentMethod } from "../../../redux/Reducers/paymentMethod";
+import "./PaymentMethod.scss";
 
 function PaymentMethod(props) {
+  const dispatch = useDispatch();
+  const [method, setMethod] = useState("cardpayment");
+  const handleChangeMethod = (e) => {
+    dispatch(changePaymentMethod(e.target.id));
+    setMethod(e.target.id);
+  };
   return (
     <div className="card payment-method">
       <div className="payment-method__header">
@@ -10,7 +18,13 @@ function PaymentMethod(props) {
       <div>
         <div className="card-body payment-method__body">
           <div className="payment-method__item">
-            <input type="radio" name="payment-method" id="momo" />
+            <input
+              type="radio"
+              name="payment-method"
+              id="momo"
+              value={method}
+              onChange={handleChangeMethod}
+            />
             <label htmlFor="momo">
               <div className="d-inline-block" style={{ width: 45 }}>
                 <img
@@ -23,7 +37,13 @@ function PaymentMethod(props) {
             </label>
           </div>
           <div className="payment-method__item">
-            <input type="radio" name="payment-method" id="zalopay" />
+            <input
+              type="radio"
+              name="payment-method"
+              id="zalopay"
+              value={method}
+              onChange={handleChangeMethod}
+            />
             <label htmlFor="zalopay">
               <div className="d-inline-block" style={{ width: 45 }}>
                 <img
@@ -36,7 +56,13 @@ function PaymentMethod(props) {
             </label>
           </div>
           <div className="payment-method__item">
-            <input type="radio" name="payment-method" id="shopeepay" />
+            <input
+              type="radio"
+              name="payment-method"
+              id="shopeepay"
+              value={method}
+              onChange={handleChangeMethod}
+            />
             <label htmlFor="shopeepay">
               <div className="d-inline-block" style={{ width: 45 }}>
                 <img
@@ -49,7 +75,13 @@ function PaymentMethod(props) {
             </label>
           </div>
           <div className="payment-method__item">
-            <input type="radio" name="payment-method" id="cardpayment" />
+            <input
+              type="radio"
+              name="payment-method"
+              id="cardpayment"
+              value={method}
+              onChange={handleChangeMethod}
+            />
             <label htmlFor="cardpayment">
               <div className="d-inline-block" style={{ width: 45 }}>
                 <img
@@ -60,6 +92,26 @@ function PaymentMethod(props) {
                 />
               </div>
               Thẻ ngân hàng
+            </label>
+          </div>
+          <div className="payment-method__item">
+            <input
+              type="radio"
+              name="payment-method"
+              id="paypal"
+              value={method}
+              onChange={handleChangeMethod}
+            />
+            <label htmlFor="cardpayment">
+              <div className="d-inline-block" style={{ width: 45 }}>
+                <img
+                  src="https://timo.vn/wp-content/uploads/card-1673581_1280.png"
+                  alt="paypal-pay-icon"
+                  height="25px"
+                  width="40px"
+                />
+              </div>
+              Paypal
             </label>
           </div>
         </div>

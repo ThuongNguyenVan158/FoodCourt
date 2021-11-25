@@ -6,6 +6,7 @@ import {
   updateAdmin,
   getallEmployeeAsync,
   getDetailsAdmin,
+  resetPassword,
 } from "../controllers/admin.controller";
 import { authenticate } from "../middlewares/Auth/authenticate";
 import { authorizeUser } from "../middlewares/Auth/authorize";
@@ -17,6 +18,18 @@ adminRouter.put(
   authenticate,
   authorizeUser(["admin, superAdmin"]),
   updateAdmin
+);
+adminRouter.put(
+  "/updateAdmin/:id",
+  authenticate,
+  authorizeUser(["admin, superAdmin"]),
+  updateAdmin
+);
+adminRouter.put(
+  "/updatePass/:id",
+  authenticate,
+  authorizeUser(["admin, superAdmin"]),
+  changePassword
 );
 adminRouter.post(
   "/addAdmin",
@@ -33,4 +46,10 @@ adminRouter.delete(
 );
 adminRouter.get("/getAllEmployee", getallEmployeeAsync);
 adminRouter.get("/detailAdmin/:id", getDetailsAdmin);
+adminRouter.put(
+  "/updatePass/:id",
+  authenticate,
+  authorizeUser(["admin, superAdmin"]),
+  resetPassword
+);
 export { adminRouter };

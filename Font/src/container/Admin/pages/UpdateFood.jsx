@@ -1,29 +1,28 @@
 import React ,{useState,useEffect} from 'react'
 import axios from "axios";
+import { useHistory, useParams } from "react-router-dom";
 
 const Foods = () => {
+    let history = useHistory();
+    const { id } = useParams();
     const [listcate,setCategory]=useState([]);
     const [newFood,setnewFood] =useState({
-        id:"",
         name:"",
         category_id:"",
         food_img:"",
         price:"",
         description:"",
-        status:"",
+        active:"true",
     });
+    const {name,category_id,food_img,price,description,active} =newFood;
     const handleInputChange=(e)=>
     {
        e.preventDefault();
        let { name, value }=e.target;
        setnewFood({...newFood,[name]: value });
-       console.log(newFood.id + "," + newFood.name+", " + newFood.category_id +  "," + newFood.food_img+", " + newFood.price+", " + newFood.description+ ","+newFood.status);
+       console.log(id + "," + newFood.name+", " + newFood.category_id +  "," + newFood.food_img+", " + newFood.price+", " + newFood.description+ ","+newFood.active);
     };
-    const handleAdd=(e)=>{
-       e.preventDefault();
-    };
-    useEffect(()=>{
-        async function fetchListCategory()
+    const fetchListCategory = async()=>
         {
             try {
                 const res = await axios.get(
@@ -32,26 +31,48 @@ const Foods = () => {
                 setCategory(res.data);
                 console.log(res.data);
             } catch (error) {
-                console.log('fail to get listFood', error.message)
+                console.log('fail to get listCategory', error.message)
             }
         }
+    useEffect(()=>{
         fetchListCategory();
       },[]);
-    //   const fetchListFood=async ()=>
-    //   {
-        //   try {
-            // const res = await axios.get(
-                // `http://localhost:5000/api/v1/food//getListFood`
-            //   );
-            //   setlistFood(res.data);
-            // console.log(res.data);
-        //   } catch (error) {
-            //   console.log('fail to get listfood', error.message)
-        //   }
-    //   }
-    // useEffect(()=>{
-    //   fetchListFood();
-    // },[]);
+      const handelupdateFood = async (e) => {
+        e.preventDefault();
+        console.log(newFood);
+        await axios.put(`http://localhost:5000/api/v1/food/updateFood/${id}`, newFood,
+        {
+            headers: {
+              token: JSON.parse(localStorage.getItem('admin')).token,
+            }
+          },
+        );
+        alert("Cập nhật thành công");
+        setnewFood({
+            name:"",
+            category_id:"",
+            food_img:"",
+            price:"",
+            description:"",
+            active:"true",
+        })
+        history.push("/foods");
+      };
+
+      const loadnewFood =  async () => {
+        try {
+            const res = await axios.get(
+              `http://localhost:5000/api/v1/food/detail/${id}`
+            );
+            setnewFood(res.data);
+            console.log(res.data);
+          } catch (error) {
+            console.log("fail to get category", error.message);
+          }
+      };
+      useEffect(() => {
+        loadnewFood();
+      }, []);
     return (
         <div>
             <h2 className="page-header">Quản lí món</h2>
@@ -65,11 +86,11 @@ const Foods = () => {
                                 <form>
                                     <div className="form-group">
                                         <lable>Tên món</lable>
-                                        <input type="text" className="form-control" name="name" onChange={handleInputChange}></input>
+                                        <input type="text" className="form-control" name="name" value={name} onChange={handleInputChange}></input>
                                     </div>   
                                     <div className="form-group">
                                         <lable>Mã danh mục</lable>
-                                        <select className="form-control" name="category_id" onChange={handleInputChange}>                                            
+                                        <select className="form-control" name="category_id" value={category_id} onChange={handleInputChange}>                                            
                                             {
                                                 listcate.map((item,i)=>{
                                                    return (<option key={i} value={item.id}>
@@ -80,26 +101,26 @@ const Foods = () => {
                                     </div>   
                                     <div className="form-group">
                                         <lable>UrlImage</lable>
-                                        <input type="text" className="form-control" name="food_img" onChange={handleInputChange}></input>
+                                        <input type="text" className="form-control" name="food_img" value={food_img} onChange={handleInputChange}></input>
                                     </div> 
                                     <div className="form-group">
                                         <lable>Giá</lable>
-                                        <input type="number" className="form-control" name="price" onChange={handleInputChange}></input>
+                                        <input type="number" className="form-control" name="price" value={price} onChange={handleInputChange}></input>
                                     </div>
                                     <div className="form-group">
                                         <lable>Mô tả</lable>
-                                        <textarea className="form-control" type="text" name="description" onChange={handleInputChange}></textarea>
+                                        <textarea className="form-control" type="text" name="description" value={description} onChange={handleInputChange}></textarea>
                                     </div>
                                     <div className="form-group">
                                         <lable>Trạng thái</lable>
-                                        <select className="form-control" name="status" onChange={handleInputChange}> 
-                                           <option value="1">Sử dụng</option>
-                                           <option value="0">Ngưng sử dụng</option>
+                                        <select className="form-control" name="active" value={active} onChange={handleInputChange}> 
+                                           <option value="true">Sử dụng</option>
+                                           <option value="false">Ngưng sử dụng</option>
                                         </select>
                                     </div>   
                                     <div className="row">
                                         <div className="col-12"> 
-                                            <button type="submit" className="buttonform" onClick={handleAdd}>Cập nhật</button>  
+                                            <button type="submit" className="buttonform" onClick={handelupdateFood}>Cập nhật</button>  
                                         </div>
                                     </div>                                                                        
                                 </form>                                                                                                                                </div>

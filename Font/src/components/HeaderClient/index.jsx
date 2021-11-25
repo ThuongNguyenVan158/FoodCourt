@@ -2,13 +2,29 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import logo from '../../assets/images/foodcourt_infologo.png'
 
 import './HeaderClient.scss';
 
+import { useHistory } from 'react-router-dom';
+import { Button } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { delLoginAction } from './../../redux/Reducers/loginUser';
+
 function HeaderClient() {
   const number = useSelector((state) => state.todoCart.number);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.loginUser);
+
+  const handleLogout = (e) => {
+    alert("Đăng xuất thành công!");
+    localStorage.removeItem('user');
+    dispatch(delLoginAction());
+    history.push('/');
+  }
+
   return (
     <nav class="navbar fixed-top navbar-expand-lg header" id="mainNavbar">
       <div class="container-fluid d-flex order-lg-1">
@@ -21,26 +37,36 @@ function HeaderClient() {
           </Link>
         </div>
         <div className="header__ctn order-lg-3">
-          <div>
+          {/* <div>
             <Link to="/" className="link">
               <i className="far fa-heart" />
               <span>Your Wishlist</span>
               <div className="qty">2</div>
             </Link>
-          </div>
+          </div> */}
           <div>
             <Link to="/order" className="link">
               <i className="fa fa-shopping-cart" />
-              <span>Your Cart</span>
+              <span>Giỏ hàng</span>
               <div className="qty">{number}</div>
             </Link>
           </div>
           <div>
-            <Link to="/login" className="link">
+            <Link to={(user.isLogin) ? '/user' : '/login'} 
+              className="link">
               <i className="fa fa-user" />
-              Login
+              {(user.isLogin) ? user.userInfo.username : 'Đăng nhập'}
             </Link>
           </div>
+
+          {
+            (user.isLogin) ?  <div className="header__logout" title="Đăng xuất">
+                                <Button type='submit' onClick={handleLogout}>
+                                  <LogoutIcon/>
+                                </Button>
+                              </div> : '' 
+          }
+
         </div>
         <button
           class="navbar-toggler header__btn"
