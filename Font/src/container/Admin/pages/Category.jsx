@@ -208,7 +208,7 @@ export default function Categorys() {
                               </button>
                               <Link
                                 className=" mr-2"
-                                to={`/editCategory/${item.id}`}
+                                to={`/admin/editCategory/${item.id}`}
                               >
                                 <i
                                   className="fa fa-edit"

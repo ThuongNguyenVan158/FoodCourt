@@ -11,7 +11,7 @@ import Settings from "../container/Admin/pages/Setting";
 import AnotherSettings from "../container/Admin/pages/AnotherSetting";
 import InfoAdmin from "../container/Admin/pages/infoadmin";
 import EditCategory from "../container/Admin/pages/UpdateCategory";
-import Food from "../container/Admin/pages/Food";
+import UpdateFood from "../container/Admin/pages/UpdateFood";
 import SignInSide from "../container/Admin/pages/LoginAdmin";
 import Accounts from "../container/Admin/pages/Account";
 const RouteHome = [
@@ -85,7 +85,7 @@ const RouteAdmin = [
   {
     exact: false,
     path: "/admin/editFood/:id",
-    component: Food,
+    component: UpdateFood,
   },
   {
     exact: false,
