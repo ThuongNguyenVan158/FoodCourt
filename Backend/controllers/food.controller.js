@@ -2,9 +2,9 @@ import { Op } from "sequelize";
 import { Food, category } from "../models";
 
 const addFood = async (req, res) => {
-  const { name,category_id,food_img, description, price,active } = req.body;
+  const { name, category_id, food_img, description, price, active } = req.body;
   const quantity_order = 0;
-  console.log(name,category_id,food_img, description, price, quantity_order);
+  console.log(name, category_id, food_img, description, price, quantity_order);
   try {
     const newFood = await Food.create({
       name,
@@ -33,8 +33,9 @@ const getDetailFood = async (req, res) => {
 
 const getListFoodbyName = async (req, res) => {
   const { name } = req.body;
+  console.log(name);
   try {
-    if (!name) {
+    if (name == undefined) {
       const listFood = await Food.findAll({
         where: { active: 1 },
         include: [
@@ -43,13 +44,18 @@ const getListFoodbyName = async (req, res) => {
           },
         ],
       });
+      console.log("1");
       res.status(200).send(listFood);
     } else {
+      console.log("2");
       const listFood = await Food.findAll({
         where: {
-          [Op.like]: `%${name}%`,
+          name: {
+            [Op.like]: `%${name}%`,
+          },
         },
       });
+
       res.status(200).send(listFood);
     }
   } catch (error) {
@@ -94,10 +100,13 @@ const getListFoodByType = async (req, res) => {
 };
 
 const updateFood = async (req, res) => {
-  const { name,category_id,food_img,price,description,active} = req.body;
+  const { name, category_id, food_img, price, description, active } = req.body;
   const { id } = req.params;
   try {
-    await Food.update({ name,category_id,food_img,price,description,active }, { where: { id } });
+    await Food.update(
+      { name, category_id, food_img, price, description, active },
+      { where: { id } }
+    );
     res.status(200).send("Update successfully");
   } catch (error) {
     res.status(500).send(error);
@@ -131,8 +140,7 @@ const uploadImgFood = async (req, res) => {
     req.status(500).send(error);
   }
 };
-const getallfoodAsync = async(req,res)=>
-{
+const getallfoodAsync = async (req, res) => {
   try {
     const listFood = await Food.findAll();
     res.status(200).send(listFood);
@@ -140,10 +148,9 @@ const getallfoodAsync = async(req,res)=>
     res.status(500).send(error);
   }
 };
-const getallCategoryAsync = async(req,res)=>
-{
+const getallCategoryAsync = async (req, res) => {
   try {
-    const listFood = await category.findAll()
+    const listFood = await category.findAll();
     res.status(200).send(listFood);
   } catch (error) {
     res.status(500).send(error);

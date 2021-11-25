@@ -9,11 +9,12 @@ export default function FoodList() {
   const dispatch = useDispatch();
   const listCart = useSelector((state) => state.todoCart.listCart);
   const fetchListCart = async () => {
-    const res = await axios.get(
-      "http://localhost:5000/api/v1/food/getListFoodbyName"
+    const res = await axios.post(
+      "http://localhost:5000/api/v1/food/getListFoodbyName",
+      undefined
     );
     dispatch(fetchCart(res.data));
-    await setLoading(true);
+    setLoading(true);
   };
   useEffect(() => {
     fetchListCart();
