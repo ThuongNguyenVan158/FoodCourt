@@ -16,10 +16,7 @@ export default function SearchFood() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      "http://localhost:5000/api/v1/food/getListFoodbyName",
-      { name }
-    );
+    const res = await axios.post("http://localhost:5000/api/v1/food/getListFoodbyName",{ name });
     console.log("text: ", res.data);
     dispatch(fetchCart(res.data));
   };
@@ -36,8 +33,7 @@ export default function SearchFood() {
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Tên sản phẩm"
-        inputProps={{ "aria-label": "search google maps" }}
+        placeholder="Tìm kiếm sản phẩm"
         onChange={handleChange}
       />
       <IconButton
