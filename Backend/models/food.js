@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       food_img: DataTypes.STRING,
       quantity_order: DataTypes.INTEGER,
       active: DataTypes.BOOLEAN,
+      category_id: DataTypes.INTEGER,
     },
     {
       sequelize,

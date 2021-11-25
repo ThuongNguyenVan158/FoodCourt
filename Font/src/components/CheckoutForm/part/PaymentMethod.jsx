@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { changePaymentMethod } from '../../../redux/Reducers/paymentMethod';
-import './PaymentMethod.scss';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { changePaymentMethod } from "../../../redux/Reducers/paymentMethod";
+import "./PaymentMethod.scss";
 
 function PaymentMethod(props) {
   const dispatch = useDispatch();
-  const [method, setMethod] = useState('cardpayment');
+  const [method, setMethod] = useState("cardpayment");
   const handleChangeMethod = (e) => {
     dispatch(changePaymentMethod(e.target.id));
     setMethod(e.target.id);
@@ -92,6 +92,26 @@ function PaymentMethod(props) {
                 />
               </div>
               Thẻ ngân hàng
+            </label>
+          </div>
+          <div className="payment-method__item">
+            <input
+              type="radio"
+              name="payment-method"
+              id="paypal"
+              value={method}
+              onChange={handleChangeMethod}
+            />
+            <label htmlFor="cardpayment">
+              <div className="d-inline-block" style={{ width: 45 }}>
+                <img
+                  src="https://timo.vn/wp-content/uploads/card-1673581_1280.png"
+                  alt="paypal-pay-icon"
+                  height="25px"
+                  width="40px"
+                />
+              </div>
+              Paypal
             </label>
           </div>
         </div>
