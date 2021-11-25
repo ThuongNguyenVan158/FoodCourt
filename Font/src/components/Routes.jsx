@@ -10,6 +10,7 @@ import AnotherSettings from '../container/Admin/pages/AnotherSetting'
 import InfoAdmin from '../container/Admin/pages/infoadmin'
 import EditCategory from '../container/Admin/pages/UpdateCategory'
 import EditFood from '../container/Admin/pages/UpdateFood'
+import SignInSide from '../container/Admin/pages/LoginAdmin'
 
 const RoutesAdmin = () => {
     return (
@@ -22,8 +23,10 @@ const RoutesAdmin = () => {
             <Route path='/anothersettings' component={AnotherSettings}/>
             <Route path='/profile' component={Settings}/>
             <Route path='/info' component={InfoAdmin}/>
-            <Route path='/editCategory' component={EditCategory}/>
-            <Route path='/editFood' component={EditFood}/>
+            <Route path='/editCategory/:id' component={EditCategory}/>
+            <Route path='/editFood/:id' component={EditFood}/>
+            <Route path='/login' component={SignInSide}/>
+
         </Switch>
     )
 }

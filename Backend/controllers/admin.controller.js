@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   try {
     const admin1 = await Admin.findOne({
       where: {
@@ -92,7 +93,8 @@ const changePassword = async (req, res) => {
   }
 };
 const addAdmiAccount = async (req, res) => {
-  const { name, email, username, password, type } = req.body;
+  const password="123";
+  const { name, email, username, type } = req.body;
   try {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
@@ -133,8 +135,8 @@ const getDetailsAdmin = async (req, res) => {
   const { id } = req.params;
   const { user } = req;
   try {
-    if (user.id === id) {
-      const detailAdmin = await Customer.findOne({
+    if (user.admin.id === id) {
+      const detailAdmin = await Admin.findOne({
         where: { id },
       });
       res.status(200).send(detailAdmin);
@@ -144,12 +146,33 @@ const getDetailsAdmin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-export {
-  loginAdmin,
-  updateAdmin,
-  addAdmiAccount,
-  removeAdmin,
-  getallEmployeeAsync,
-  getDetailsAdmin,
-  changePassword,
+const resetPassword = async (req, res) => {
+  const { password } = req.body;
+  const { id } = req.params;
+  const { user } = req;
+  console.log(user);
+  console.log(password);
+  try {
+    if (user.id == id) {
+      const salt = bcrypt.genSaltSync(10);
+      const hashPassword = bcrypt.hashSync(password, salt);
+      await Admin.update(
+        {
+          password: hashPassword,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      const newAdmin = await Admin.findOne({ where: { id } });
+      res.status(200).send({ message: "Change successfully", newAdmin });
+    } else {
+      res.status(403).send({ message: "Lỗi xác thực" });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
+export { loginAdmin, updateAdmin, addAdmiAccount, removeAdmin,getallEmployeeAsync,getDetailsAdmin,resetPassword};

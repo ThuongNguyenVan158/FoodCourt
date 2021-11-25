@@ -28,15 +28,15 @@ foodRouter.get("/getListFoodByPriceASC", getListFoodByPriceASC);
 foodRouter.get("/getListFoodByPriceDESC", getListFoodByPriceDESC);
 foodRouter.get("/getListFood", getallfoodAsync);
 foodRouter.put(
-  "updateFood/:id",
+  "/updateFood/:id",
   authenticate,
   authorizeUser(["admin", "superAdmin"]),
   updateFood
 );
 foodRouter.post(
   "/uploadImg/:id",
-  authenticate,
-  authorizeUser(["admin", "superAdmin"]),
+  // authenticate,
+  // authorizeUser(["admin", "superAdmin"]),
   uploadImage("food-img"),
   uploadImgFood
 );
