@@ -28,8 +28,6 @@ ReactDOM.render(
   document.getElementById("root")
 );
 reportWebVitals();
-<<<<<<< HEAD
-=======
 // import React from "react";
 // import ReactDOM from "react-dom";
 // import "./index.css";
@@ -50,4 +48,3 @@ reportWebVitals();
 //   document.getElementById("root")
 // );
 // reportWebVitals();
->>>>>>> 3d898283b3a67bff240453be1bbc3447ea6ffd61
