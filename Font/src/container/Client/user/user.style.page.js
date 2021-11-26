@@ -106,4 +106,15 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
     },
+    listorder: {
+        width: '100%',
+        height: '500px',
+        overflowY: 'scroll',
+    },
+    headerorder: {
+        height: '50px',
+        width: '95%',
+        margin: '20px 20px',
+        boxShadow: '0 2px 2px 0 rgb(28 29 31 / 24%), 0 0 2px 0 rgb(28 29 31 / 12%)',
+    }
 }))

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStyles } from "./user.style.page";
 import { Container } from "@mui/material";
 
@@ -7,11 +7,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoginAction } from './../../../redux/Reducers/loginUser';
+import ItemOrder from "../../../components/ItemOrder/ItemOrder.component";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -129,6 +130,26 @@ function UserPage() {
     }
   }
 
+  const [orders, setOrders] = useState([]);
+
+  const getOrders = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/api/v1/order/list/${data.userInfo.id}`, {
+        headers: {
+          token: JSON.parse(localStorage.getItem('user')).token,
+        }
+      })
+      setOrders(result.data[0].Orders);
+    }
+    catch (error) {}
+  }
+
+  useEffect(() => {
+    getOrders();
+  }, [])
+
+  console.log(orders);
+
   return (
     <div className={classes.root}>
       <Container>
@@ -158,6 +179,7 @@ function UserPage() {
                     >
                       <Tab label="Thông Tin Tài Khoản" {...a11yProps(0)} />
                       <Tab label="Đổi Mật Khẩu" {...a11yProps(1)} />
+                      <Tab label="Lịch sử mua hàng" {...a11yProps(2)} />
                     </Tabs>
                   </Box>
                 </div>
@@ -282,6 +304,43 @@ function UserPage() {
                         </div>
                       </div>
                     </form>
+                  </div>
+                </TabPanel>
+
+                <TabPanel value={value} index={2}>
+                  <div className={classes.mainBox}>
+                    <h3>LỊCH SỬ MUA HÀNG</h3>
+
+                    <div className={classes.listorder}>
+                      <div className={classes.headerorder}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={1}>
+                            ID
+                          </Grid>
+                          <Grid item xs={3}>
+                            Ngày thanh toán
+                          </Grid>
+                          <Grid item xs={3}>
+                            Tổng tiền thanh toán
+                          </Grid>
+                          <Grid item xs={4}>
+                            Phương thức thanh toán
+                          </Grid>
+                        </Grid>
+                      </div>
+                      
+                      {
+                        orders.map((order, index) => {
+                          return (
+                            <div key={index}>
+                              <ItemOrder order={order}/>
+                            </div>
+                          )
+                        }, '')
+                      }
+
+                    </div>
+
                   </div>
                 </TabPanel>
               </div>

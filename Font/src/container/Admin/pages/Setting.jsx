@@ -43,7 +43,7 @@ const Settings = () => {
         password: "",
         confirmnewpassword: "",
       });
-      history.push("/settings");
+      history.push("/admin/settings");
     } catch (err) {
       alert("Thay đổi mật khẩu không thành công!");
     }

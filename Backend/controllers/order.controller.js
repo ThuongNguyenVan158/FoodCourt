@@ -37,7 +37,7 @@ const viewListOrder = async (req, res) => {
   }
 };
 const viewOrderByCustomer = async (req, res) => {
-  const customer_id = req.user.id;
+  const customer_id = req.params.id;
   try {
     const listOrder = await Customer.findAll({
       where: { id: customer_id },

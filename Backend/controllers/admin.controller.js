@@ -53,11 +53,21 @@ const loginAdmin = async (req, res) => {
 };
 const updateAdmin = async (req, res) => {
   const { id } = req.params;
-  const { name, email, username } = req.body;
+  console.log(id);
+  const { name, email, username ,type} = req.body;
+  console.log(req.body);
   const { user } = req;
   try {
-    if (user.id == id) {
-      await Admin.update({ name, email, username }, { where: { id: id } });
+    if (user.id == id) 
+    {
+      await Admin.update(
+        { name, 
+          email, 
+          username,
+          type,
+        }, 
+        { where: { id } 
+        });
       const newAdmin = await Admin.findOne({ where: { id } });
       res.status(200).send({ message: "Update successfully", newAdmin });
     } else res.status(403).send({ message: "Không thể cập nhật" });
@@ -87,11 +97,7 @@ const addAdmiAccount = async (req, res) => {
 const removeAdmin = async (req, res) => {
   const { id } = req.params;
   try {
-    await Admin.destroy({
-      where: {
-        id,
-      },
-    });
+    await Admin.destroy({where: { id } });
     res.status(200).send("Remove completed");
   } catch (error) {
     res.status(500).send(error);
@@ -107,15 +113,12 @@ const getallEmployeeAsync = async (req, res) => {
 };
 const getDetailsAdmin = async (req, res) => {
   const { id } = req.params;
-  const { user } = req;
+  console.log(id);
   try {
-    if (user.admin.id === id) {
       const detailAdmin = await Admin.findOne({
         where: { id },
       });
       res.status(200).send(detailAdmin);
-    } else
-      return res.status(401).send("Không thể xem chi tiết người dùng này !");
   } catch (error) {
     res.status(500).send(error);
   }
