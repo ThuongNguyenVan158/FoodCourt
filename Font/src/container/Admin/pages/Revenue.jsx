@@ -1,6 +1,6 @@
-import React ,{useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 import DitgitRevenue from "../../../components/ditgit-revenue/DitgitRevenue";
 import ditgitRevenues from "../../../assets/JsonData/ditgit-revenue.json";
@@ -8,66 +8,80 @@ import Pagination from "../../../components/Pagination";
 import axios from "axios";
 import "./style.css";
 
-const chartOptions = {
-  series: [
-    {
-      name: "Doanh thu theo tháng",
-      data: [0,0,0,0,0,0,11111,0,0,0,0,0],
-    },
-  ],
-  options: {
-    color: ["#6ab04c", "#2980b9"],
-    chart: {
-      background: "transparent",
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-    },
-    legend: {
-      position: "top",
-    },
-    grid: {
-      show: false,
-    },
-  },
-};
-
 const Revenue = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
   const [ditgit, setDegit] = useState(false);
-  const [day,setDay] =useState(
-    {
-      date:"",
-    }
-  );
-  const [listBillToday,setListBillToday] =useState([]);
-  const [listBillOfDate,setListBillOfDate] =useState([]);
+  const [day, setDay] = useState({
+    date: "",
+  });
+  const [data, setData] = useState([]);
+  const [checkdata, setCheckdata] = useState(false);
+  const chartOptions = {
+    series: [
+      {
+        name: "Doanh thu theo tháng",
+        data: data,
+      },
+    ],
+    options: {
+      color: ["#6ab04c", "#2980b9"],
+      chart: {
+        background: "transparent",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+      },
+      legend: {
+        position: "top",
+      },
+      grid: {
+        show: false,
+      },
+    },
+  };
+  const fetChart = async () => {
+    const res = await axios.get(
+      "http://localhost:5000/api/v1/analyst/totalByMonth"
+    );
+    let dataarray = [];
+    res.data.forEach((element) => {
+      dataarray.push(element.count);
+    });
+    setData(dataarray);
+    console.log(res.data);
+    setCheckdata(true);
+  };
+  useEffect(() => {}, [checkdata]);
+  useEffect(() => {
+    fetChart();
+  }, []);
+  const [listBillToday, setListBillToday] = useState([]);
+  const [listBillOfDate, setListBillOfDate] = useState([]);
   const handleInputChange = (e) => {
     e.preventDefault();
     let { name, value } = e.target;
     setDay({ ...day, [name]: value });
-    console.log(day.date);
   };
-  const {date} =day;
+  const { date } = day;
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -102,24 +116,7 @@ const Revenue = () => {
   useEffect(() => {
     fetRevenue();
   }, []);
-  useEffect(() => {
-  }, [ditgit]);
-
-  // const fetRevenueChart = async () => {
-  //   const res = await axios.get(
-  //     "http://localhost:5000/api/v1/analyst/totalByMonth"
-  //   );
-  //   console.log(res.data);
-  //   setDegitChart({
-  //     name: "Doanh thu theo tháng",
-  //     data: [0,0,0,0,0,0,0,0,0,10,0,0],
-  //   })
-  // };
-  // useEffect(() => {
-  //   fetRevenueChart();
-  // }, []);
-  // useEffect(() => {
-  // }, [ditgitChart]);
+  useEffect(() => {}, [ditgit]);
 
   const fetchListBillToday = async () => {
     try {
@@ -127,7 +124,6 @@ const Revenue = () => {
         `http://localhost:5000/api/v1/order/listallordertoday`
       );
       setListBillToday(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log("fail to get listBillToday", error.message);
     }
@@ -136,21 +132,6 @@ const Revenue = () => {
     fetchListBillToday();
   }, []);
   useEffect(() => {}, [listBillToday]);
-
-  // const fetchListBillMonth = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `http://localhost:5000/api/v1/order/listallorderbymonth`
-  //     );
-  //     setListBillOfDate(res.data);
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     console.log("fail to get listBillMonth", error.message);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchListBillMonth();
-  // }, []);
   useEffect(() => {}, [listBillOfDate]);
   const fetchListbyDate = async (e) => {
     try {
@@ -158,7 +139,7 @@ const Revenue = () => {
         `http://localhost:5000/api/v1/order/listallorderbydate/${day.date}`
       );
       setListBillOfDate(res.data);
-      setDay({date:""});
+      setDay({ date: "" });
     } catch (error) {
       console.log("fail to get listBillMonth", error.message);
     }
@@ -242,10 +223,10 @@ const Revenue = () => {
                         .slice(pagination.start, pagination.perpage)
                         .map((item) => (
                           <tr key={item.index} style={{ textAlign: "left" }}>
-                            <td>{item.order_date}</td>
+                            <td>{item.order_date.slice(0, 10)}</td>
                             <td>{item.total_amount}</td>
                             <td>{item.payment_method}</td>
-                            <td>{" "}</td>
+                            <td> </td>
                           </tr>
                         ))}
                     </tbody>
@@ -270,26 +251,32 @@ const Revenue = () => {
               <h3>Danh sách hoá đơn trong tháng</h3>
             </div>
             <form action="" autoComplete="off">
-            <div className="input-group mb-4 mt-3">
-              <div className="form-outline">
-                <input
-                  type="date"
-                  id="form1"
-                  className="form-control"
-                  name="date"
-                  value={date}
-                  placeholder="Tìm kiếm"
-                  style={{ backgroundColor: "#ececec" }}
-                  onChange={handleInputChange}
-                />
+              <div className="input-group mb-4 mt-3">
+                <div className="form-outline">
+                  <input
+                    type="date"
+                    id="form1"
+                    className="form-control"
+                    name="date"
+                    value={date}
+                    placeholder="Tìm kiếm"
+                    style={{ backgroundColor: "#ececec" }}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => {
+                    fetchListbyDate();
+                  }}
+                >
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </button>
               </div>
-              <button type="button" className="btn btn-success" onClick={()=>{fetchListbyDate()}}>
-                <i className="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </div>
             </form>
             <div className="card__body">
-            <div>
+              <div>
                 <div className="table-wrapper">
                   <table>
                     <thead>
@@ -305,10 +292,10 @@ const Revenue = () => {
                         .slice(pagination1.start, pagination1.perpage)
                         .map((item) => (
                           <tr key={item.index} style={{ textAlign: "left" }}>
-                          <td>{item.order_date}</td>
+                            <td>{item.order_date.slice(0, 10)}</td>
                             <td>{item.total_amount}</td>
                             <td>{item.payment_method}</td>
-                            <td>{" "}</td>
+                            <td> </td>
                           </tr>
                         ))}
                     </tbody>

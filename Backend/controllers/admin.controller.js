@@ -1,7 +1,6 @@
 import { Admin } from "../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { v4 as uuid } from "uuid";
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
@@ -54,20 +53,12 @@ const loginAdmin = async (req, res) => {
 const updateAdmin = async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  const { name, email, username ,type} = req.body;
+  const { name, email, username, type } = req.body;
   console.log(req.body);
   const { user } = req;
   try {
-    if (user.id == id) 
-    {
-      await Admin.update(
-        { name, 
-          email, 
-          username,
-          type,
-        }, 
-        { where: { id } 
-        });
+    if (user.id == id) {
+      await Admin.update({ name, email, username, type }, { where: { id } });
       const newAdmin = await Admin.findOne({ where: { id } });
       res.status(200).send({ message: "Update successfully", newAdmin });
     } else res.status(403).send({ message: "Không thể cập nhật" });
@@ -97,7 +88,7 @@ const addAdmiAccount = async (req, res) => {
 const removeAdmin = async (req, res) => {
   const { id } = req.params;
   try {
-    await Admin.destroy({where: { id } });
+    await Admin.destroy({ where: { id } });
     res.status(200).send("Remove completed");
   } catch (error) {
     res.status(500).send(error);
@@ -115,10 +106,10 @@ const getDetailsAdmin = async (req, res) => {
   const { id } = req.params;
   console.log(id);
   try {
-      const detailAdmin = await Admin.findOne({
-        where: { id },
-      });
-      res.status(200).send(detailAdmin);
+    const detailAdmin = await Admin.findOne({
+      where: { id },
+    });
+    res.status(200).send(detailAdmin);
   } catch (error) {
     res.status(500).send(error);
   }
