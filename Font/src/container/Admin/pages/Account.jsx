@@ -107,7 +107,7 @@ const Accounts = () => {
     <div>
       <h2 className="page-header">Quản lí tài khoản</h2>
       <div className="row">
-        <div className="col-4">
+        <div className="col-6">
           <div className="card">
             <div className="card__header1">
               <h3>Quản lí tài khoản</h3>
@@ -148,7 +148,9 @@ const Accounts = () => {
             </div>
           </div>
         </div>
-        <div className="col-8">
+      </div>
+      <div className="row">
+        <div className="col-12">
           <div className="card">
             <div className="card__header1">
               <h3>Danh sách tài khoản nhân viên</h3>
@@ -202,7 +204,7 @@ const Accounts = () => {
                 </div>
               </div>
             </div>
-            <div className="locatepage col-6">
+            <div className="locatepage col-4">
               <Pagination
                pagination={pagination}
                listCart={listAccount}
@@ -211,8 +213,8 @@ const Accounts = () => {
             </div>                                
           </div>
         </div>
+        </div>
       </div>
-    </div>
   );
 };
 
