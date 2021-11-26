@@ -71,7 +71,7 @@ const Foods = () => {
       description: "",
       active: "true",
     });
-    history.push("/foods");
+    history.push("/admin/foods");
   };
   const loadnewFood = async () => {
     try {
@@ -80,7 +80,7 @@ const Foods = () => {
       );
       setnewFood(res.data);
     } catch (error) {
-      console.log("fail to get category", error.message);
+      console.log("fail to get detail", error.message);
     }
   };
   const handleImg = (e) => {

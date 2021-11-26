@@ -19,7 +19,7 @@ const Accounts = () => {
   const [account,setAccount] = useState({
     username:"",
     name:"",
-    type:"",
+    type:"admin",
     email:"",
   });
   const {username,name,type,email}= account;
@@ -43,25 +43,29 @@ const Accounts = () => {
   };
 
   const handleAdd = async (e) => {
-    console.log(account);
-    console.log(account.type+" fail rồi");
+    console.log(account.type);
     e.preventDefault();
-    await axios.post(
-      "http://localhost:5000/api/v1/security/admin/addAdmin",
-      account,
-      {
-        headers: {
-          token: JSON.parse(localStorage.getItem('admin')).token,
-        }
-      },
-    );
-    alert("Thêm thành công. Mật khẩu mặc định là 123");
-    setAccount({
-      username:"",
-      name:"",
-      type:"",
-      email:"",
-    });
+    try {
+      await axios.post(
+        "http://localhost:5000/api/v1/security/admin/addAdmin",
+        account,
+        {
+          headers: {
+            token: JSON.parse(localStorage.getItem('admin')).token,
+          }
+        },
+      );
+      alert("Thêm thành công. Mật khẩu mặc định là 123");
+      setAccount({
+        username:"",
+        name:"",
+        type:"admin",
+        email:"",
+      });
+    } catch (error) {
+      alert("Thêm thất bại!");
+    }
+   
     fetchListAccount();
   };
 
@@ -73,7 +77,7 @@ const Accounts = () => {
       setlistAccount(res.data);
       console.log(res.data);
   } catch (error) {
-      console.log('fail to get listCategory', error.message)
+      console.log('fail to get listAccount', error.message)
   }
   };
 
@@ -81,9 +85,10 @@ const Accounts = () => {
    fetchListAccount();
  },[]);
  useEffect(() => {}, [listAccount]);
- const deleteRecord = (id) =>
+ const deleteRecord = async (id) =>
  {
-   axios.delete(`http://localhost:5000/api/v1/security/admin/deleteAdmin/${id}`,
+   console.log(id);
+   await axios.delete(`http://localhost:5000/api/v1/security/admin/deleteAdmin/${id}`,
    {
     headers: {
       token: JSON.parse(localStorage.getItem('admin')).token,
@@ -119,7 +124,7 @@ const Accounts = () => {
                 </div>
                 <div className="form-group">
                   <lable>Loại tài khoản</lable>
-                  <select className="form-control" name="type" value={type} onChange={handleInputChange}>
+                  <select className="form-control" name="type" value={type} onChange={handleInputChange} defaultValue='admin'>
                     {
                       listType.map((item)=> {
                          return(<option key={item.id} value={item.type}>

@@ -16,26 +16,20 @@ adminRouter.post("/login", loginAdmin);
 adminRouter.put(
   "/updateAdmin/:id",
   authenticate,
-  authorizeUser(["admin, superAdmin"]),
-  updateAdmin
-);
-adminRouter.put(
-  "/updateAdmin/:id",
-  authenticate,
-  authorizeUser(["admin, superAdmin"]),
+  authorizeUser(["admin", "superAdmin"]),
   updateAdmin
 );
 adminRouter.post(
   "/addAdmin",
   authenticate,
-  authorizeUser(["admin,superAdmin"]),
+  authorizeUser(["admin", "superAdmin"]),
   checkEmailDuplicateAdmin,
   addAdmiAccount
 );
 adminRouter.delete(
   "/deleteAdmin/:id",
   authenticate,
-  authorizeUser(["admin,superAdmin"]),
+  authorizeUser(["admin", "superAdmin"]),
   removeAdmin
 );
 adminRouter.get("/getAllEmployee", getallEmployeeAsync);

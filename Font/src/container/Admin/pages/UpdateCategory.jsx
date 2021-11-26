@@ -27,7 +27,7 @@ const EditCategory =()=>{
             name: "",
             img_url: "",
         })
-        history.push("/categorys");
+        history.push("/admin/categorys");
       };
      
       const loadnewCate =  async () => {
