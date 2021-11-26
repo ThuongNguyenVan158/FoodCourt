@@ -1,15 +1,10 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-
 import { useSelector } from "react-redux";
-
 import DitgitRevenue from "../../../components/ditgit-revenue/DitgitRevenue";
-
 import Table from "../../../components/table/Table";
-
 import ditgitRevenues from "../../../assets/JsonData/ditgit-revenue.json";
-
+import axios from "axios";
 const chartOptions = {
   series: [
     {
@@ -136,8 +131,23 @@ const renderBillBody = (item, index) => (
 );
 
 const Revenue = () => {
+  const [ditgit, setDegit] = useState(false);
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
-
+  const fetRevenue = async () => {
+    const res = await axios.get(
+      "http://localhost:5000/api/v1/analyst/totalByDate"
+    );
+    ditgitRevenues.forEach((revenue, index) => {
+      revenue.count = res.data[index].count;
+    });
+    setDegit(true);
+  };
+  useEffect(() => {
+    fetRevenue();
+  }, []);
+  useEffect(() => {
+    console.log(ditgit);
+  }, [ditgit]);
   return (
     <div>
       <h2 className="page-header">Quản lí doanh thu</h2>
@@ -175,7 +185,7 @@ const Revenue = () => {
               height="100%"
             />
           </div>
-        </div>{" "}
+        </div>
       </div>
       <div className="row">
         <div className="col-12">
