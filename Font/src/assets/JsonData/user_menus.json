@@ -1,7 +1,7 @@
 [
   {
     "icon": "bx bx-user",
-    "route": "/info",
+    "route": "/admin/info",
     "content": "Hồ sơ"
   },
   {
