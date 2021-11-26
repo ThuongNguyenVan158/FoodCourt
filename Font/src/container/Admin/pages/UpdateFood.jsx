@@ -202,7 +202,7 @@ const Foods = () => {
           </div>
         </div>
         <div className="col-1"></div>
-        <div className="col-4">
+        <div className="col-6">
           <form className="card">
             <div className="card__header1">
               <h3>Upload ảnh cho món ăn</h3>
@@ -214,9 +214,10 @@ const Foods = () => {
                 id="myFile"
                 name="filename"
               />
+              <input />
               <input
                 onClick={handleUpload}
-                className="col-12 mt-5 btn btn-success"
+                className="buttonform"
                 type="submit"
               />
             </div>

@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React ,{useState,useEffect } from "react";
 import Chart from "react-apexcharts";
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
+
 import DitgitRevenue from "../../../components/ditgit-revenue/DitgitRevenue";
-import Table from "../../../components/table/Table";
 import ditgitRevenues from "../../../assets/JsonData/ditgit-revenue.json";
+import Pagination from "../../../components/Pagination";
 import axios from "axios";
+import "./style.css";
+
 const chartOptions = {
   series: [
     {
       name: "Doanh thu theo tháng",
-      data: [40, 70, 20, 90, 36, 80, 30, 91, 60, 90, 100, 120],
+      data: [0,0,0,0,0,0,11111,0,0,0,0,0],
     },
   ],
   options: {
@@ -48,91 +51,45 @@ const chartOptions = {
   },
 };
 
-const hoadon = {
-  head: [
-    "Tên món",
-    "Mã danh mục",
-    "Giá tiền",
-    "Số lượng",
-    "Thành tiền",
-    "Phương thức tt",
-    "Ngày tt",
-  ],
-  body: [
-    {
-      name: "Phở bò",
-      category: "Món nước",
-      Unitprice: "$25000",
-      Quantity: "2",
-      price: "$50000",
-      Payment: "Mono",
-      Datett: "11-05-2021",
-    },
-    {
-      name: "Cơm chiên",
-      category: "Món chiên",
-      Unitprice: "$20000",
-      Quantity: "2",
-      price: "$40000",
-      Payment: "Mono",
-      Datett: "11-05-2021",
-    },
-    {
-      name: "Bún bò bò",
-      category: "Món nước",
-      Unitprice: "$25000",
-      Quantity: "1",
-      price: "$25000",
-      Payment: "Mono",
-      Datett: "11-05-2021",
-    },
-    {
-      name: "Cơm chiên",
-      category: "Món chiên",
-      Unitprice: "$20000",
-      Quantity: "3",
-      price: "$60000",
-      Payment: "Mono",
-      Datett: "11-05-2021",
-    },
-    {
-      name: "Trà sửa thái xanh",
-      category: "Đồ uống",
-      Unitprice: "$20000",
-      Quantity: "3",
-      price: "$60000",
-      Payment: "Mono",
-      Datett: "11-05-2021",
-    },
-    {
-      name: "Trà chanh",
-      category: "Đồ uống",
-      Unitprice: "$20000",
-      Quantity: "3",
-      price: "$60000",
-      Payment: "Mono",
-      Datett: "11-05-2021",
-    },
-  ],
-};
-
-const renderBillHead = (item, index) => <th key={index}>{item}</th>;
-
-const renderBillBody = (item, index) => (
-  <tr key={index}>
-    <td>{item.name}</td>
-    <td>{item.category}</td>
-    <td>{item.Unitprice}</td>
-    <td>{item.Quantity}</td>
-    <td>{item.price}</td>
-    <td>{item.Payment}</td>
-    <td>{item.Datett}</td>
-  </tr>
-);
-
 const Revenue = () => {
-  const [ditgit, setDegit] = useState(false);
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
+  const [ditgit, setDegit] = useState(false);
+  const [day,setDay] =useState(
+    {
+      date:"",
+    }
+  );
+  const [listBillToday,setListBillToday] =useState([]);
+  const [listBillOfDate,setListBillOfDate] =useState([]);
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    let { name, value } = e.target;
+    setDay({ ...day, [name]: value });
+    console.log(day.date);
+  };
+  const {date} =day;
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    perpage: 10,
+    start: 0,
+    total: listBillToday.length,
+    showPrevButton: false,
+    showFirstPageButton: false,
+    showNextButton: false,
+    showLastPageButton: false,
+  });
+  const [pagination1, setPagination1] = useState({
+    page: 1,
+    limit: 10,
+    perpage: 10,
+    start: 0,
+    total: listBillOfDate.length,
+    showPrevButton: false,
+    showFirstPageButton: false,
+    showNextButton: false,
+    showLastPageButton: false,
+  });
   const fetRevenue = async () => {
     const res = await axios.get(
       "http://localhost:5000/api/v1/analyst/totalByDate"
@@ -146,8 +103,70 @@ const Revenue = () => {
     fetRevenue();
   }, []);
   useEffect(() => {
-    console.log(ditgit);
   }, [ditgit]);
+
+  // const fetRevenueChart = async () => {
+  //   const res = await axios.get(
+  //     "http://localhost:5000/api/v1/analyst/totalByMonth"
+  //   );
+  //   console.log(res.data);
+  //   setDegitChart({
+  //     name: "Doanh thu theo tháng",
+  //     data: [0,0,0,0,0,0,0,0,0,10,0,0],
+  //   })
+  // };
+  // useEffect(() => {
+  //   fetRevenueChart();
+  // }, []);
+  // useEffect(() => {
+  // }, [ditgitChart]);
+
+  const fetchListBillToday = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/order/listallordertoday`
+      );
+      setListBillToday(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log("fail to get listBillToday", error.message);
+    }
+  };
+  useEffect(() => {
+    fetchListBillToday();
+  }, []);
+  useEffect(() => {}, [listBillToday]);
+
+  // const fetchListBillMonth = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `http://localhost:5000/api/v1/order/listallorderbymonth`
+  //     );
+  //     setListBillOfDate(res.data);
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log("fail to get listBillMonth", error.message);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchListBillMonth();
+  // }, []);
+  useEffect(() => {}, [listBillOfDate]);
+  const fetchListbyDate = async (e) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/order/listallorderbydate/${day.date}`
+      );
+      setListBillOfDate(res.data);
+      setDay({date:""});
+    } catch (error) {
+      console.log("fail to get listBillMonth", error.message);
+    }
+  };
+  useEffect(() => {
+    fetchListbyDate();
+  }, []);
+  useEffect(() => {}, [listBillOfDate]);
   return (
     <div>
       <h2 className="page-header">Quản lí doanh thu</h2>
@@ -167,7 +186,6 @@ const Revenue = () => {
         </div>
         <div className="col-7">
           <div className="card full-height">
-            {/* chart */}
             <Chart
               options={
                 themeReducer === "theme-mode-dark"
@@ -208,12 +226,38 @@ const Revenue = () => {
               </button>
             </div>
             <div className="card__body">
-              <Table
-                limit="5"
-                headData={hoadon.head}
-                renderHead={(item, index) => renderBillHead(item, index)}
-                bodyData={hoadon.body}
-                renderBody={(item, index) => renderBillBody(item, index)}
+              <div>
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr>
+                        <td>Ngày thanh toán</td>
+                        <td>Tổng tiền</td>
+                        <td>Phương thức thanh toán</td>
+                        <td>Chi tiết</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {listBillToday
+                        .slice(pagination.start, pagination.perpage)
+                        .map((item) => (
+                          <tr key={item.index} style={{ textAlign: "left" }}>
+                            <td>{item.order_date}</td>
+                            <td>{item.total_amount}</td>
+                            <td>{item.payment_method}</td>
+                            <td>{" "}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className="locatepage col-4">
+              <Pagination
+                pagination={pagination}
+                listCart={listBillToday}
+                setPagination={setPagination}
               />
             </div>
           </div>
@@ -225,27 +269,58 @@ const Revenue = () => {
             <div className="card__header">
               <h3>Danh sách hoá đơn trong tháng</h3>
             </div>
+            <form action="" autoComplete="off">
             <div className="input-group mb-4 mt-3">
               <div className="form-outline">
                 <input
-                  type="text"
+                  type="date"
                   id="form1"
                   className="form-control"
+                  name="date"
+                  value={date}
                   placeholder="Tìm kiếm"
                   style={{ backgroundColor: "#ececec" }}
+                  onChange={handleInputChange}
                 />
               </div>
-              <button type="button" className="btn btn-success">
+              <button type="button" className="btn btn-success" onClick={()=>{fetchListbyDate()}}>
                 <i className="fa fa-search" aria-hidden="true"></i>
               </button>
             </div>
+            </form>
             <div className="card__body">
-              <Table
-                limit="5"
-                headData={hoadon.head}
-                renderHead={(item, index) => renderBillHead(item, index)}
-                bodyData={hoadon.body}
-                renderBody={(item, index) => renderBillBody(item, index)}
+            <div>
+                <div className="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr>
+                        <td>Ngày thanh toán</td>
+                        <td>Tổng tiền</td>
+                        <td>Phương thức thanh toán</td>
+                        <td>Chi tiết</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {listBillOfDate
+                        .slice(pagination1.start, pagination1.perpage)
+                        .map((item) => (
+                          <tr key={item.index} style={{ textAlign: "left" }}>
+                          <td>{item.order_date}</td>
+                            <td>{item.total_amount}</td>
+                            <td>{item.payment_method}</td>
+                            <td>{" "}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className="locatepage col-4">
+              <Pagination
+                pagination={pagination1}
+                listCart={listBillOfDate}
+                setPagination={setPagination1}
               />
             </div>
           </div>

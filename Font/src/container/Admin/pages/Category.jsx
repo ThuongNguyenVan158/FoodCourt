@@ -174,7 +174,6 @@ export default function Categorys() {
                       <tr>
                         <td>Mã danh mục</td>
                         <td>Tên danh mục</td>
-                        <td>Url image</td>
                         <td>Xoá / Sửa</td>
                       </tr>
                     </thead>
@@ -185,7 +184,6 @@ export default function Categorys() {
                           <tr key={item.index} style={{ textAlign: "left" }}>
                             <td>{item.id}</td>
                             <td>{item.name}</td>
-                            <td>{item.img_url}</td>
                             <td>
                               <button
                                 onClick={() => {

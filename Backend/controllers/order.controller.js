@@ -1,4 +1,5 @@
 import { Order, OrderItem, Customer } from "../models";
+import { Op } from "sequelize";
 const ordering = async (req, res) => {
   const { customer_id, items, total_amount, payment_method } = req.body;
   const today = new Date();
@@ -57,4 +58,61 @@ const viewOrderByCustomer = async (req, res) => {
     res.status(500).send(error);
   }
 };
-export { ordering, viewListOrder, viewOrderByCustomer };
+const viewListOrderToday = async (req, res) => {
+  try {
+    const today = new Date();
+    const date=(today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()).toString();
+    const list = await Order.findAll({
+      where: { order_date : {  [Op.startsWith]: `${date}%`,}  },
+      order: [["order_date", "DESC"]],
+      include: [
+        {
+          model: OrderItem,
+        },
+      ],
+    });
+    res.status(200).send(list);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const viewListOrderByDate = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const date=(id.toString()).toString();
+    console.log(date);
+    const list = await Order.findAll({
+      where: { order_date : {  [Op.startsWith]: `${date}%`,}  },
+      order: [["order_date", "DESC"]],
+      include: [
+        {
+          model: OrderItem,
+        },
+      ],
+    });
+    res.status(200).send(list);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const viewListOrderByMonth = async (req, res) => {
+  try {
+    const today = new Date();
+    const date=(today.getFullYear()+"-"+(today.getMonth() + 1) ).toString();
+    console.log(date);
+    const list = await Order.findAll({
+      where: { order_date :{  [Op.startsWith]: `${date}%`,} },
+      order: [["order_date", "DESC"]],
+      include: [
+        {
+          model: OrderItem,
+        },
+      ],
+    });
+    res.status(200).send(list);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+export { ordering, viewListOrder, viewOrderByCustomer,viewListOrderToday,viewListOrderByDate,viewListOrderByMonth};
