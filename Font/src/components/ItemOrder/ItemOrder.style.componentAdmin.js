@@ -1,18 +1,19 @@
 import { makeStyles } from "@mui/styles";
-
+import "../../assets/css/index.css"
 export const useStyles = makeStyles((theme) => ({
   root: {
-    height: "50px",
-    width: "95%",
+    height: "30px",
+    width: "30px",
     // borderRadius: '35px',
     // boxShadow: '0 2px 2px 0 rgb(28 29 31 / 24%), 0 0 2px 0 rgb(28 29 31 / 12%)',
-    margin: "20px 20px",
-    backgroundColor: "#eeeeeeee",
+    margin: "20px 20px 20px 20px",
+    // backgroundColor: "var(--main-color)",
     "& button": {
-      minWidth: "30px",
-      height: "30px",
-      borderRadius: "15px",
-      color: "#555",
+      minWidth: "10px",
+      height: "8px",
+      borderRadius: "50%",
+      color: "black",
+      width:"10px",
     },
   },
   modal: {

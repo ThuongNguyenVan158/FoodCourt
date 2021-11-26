@@ -7,6 +7,9 @@ import ditgitRevenues from "../../../assets/JsonData/ditgit-revenue.json";
 import Pagination from "../../../components/Pagination";
 import axios from "axios";
 import "./style.css";
+import { Link } from "react-router-dom";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ItemOrderAdmin from "../../../components/ItemOrder/ItemOrder.componentAdmin";
 
 const Revenue = () => {
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
@@ -147,6 +150,20 @@ const Revenue = () => {
   useEffect(() => {
     fetchListbyDate();
   }, []);
+  const fetchListBillMonth = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/order/listallorderbymonth`
+      );
+      setListBillOfDate(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log("fail to get listBillMonth", error.message);
+    }
+  };
+  useEffect(() => {
+    fetchListBillMonth();
+  }, []);
   useEffect(() => {}, [listBillOfDate]);
   return (
     <div>
@@ -226,7 +243,13 @@ const Revenue = () => {
                             <td>{item.order_date.slice(0, 10)}</td>
                             <td>{item.total_amount}</td>
                             <td>{item.payment_method}</td>
-                            <td> </td>
+                            <td>
+                              {
+                                    (<div>
+                                      <ItemOrderAdmin order={item}/>
+                                    </div>)
+                              }
+                             </td>
                           </tr>
                         ))}
                     </tbody>
@@ -295,7 +318,12 @@ const Revenue = () => {
                             <td>{item.order_date.slice(0, 10)}</td>
                             <td>{item.total_amount}</td>
                             <td>{item.payment_method}</td>
-                            <td> </td>
+                            <td> 
+                              {(<div>
+                                <ItemOrderAdmin order={item}/>
+                              </div>)
+                              }
+                            </td>
                           </tr>
                         ))}
                     </tbody>
