@@ -203,7 +203,7 @@ const Revenue = () => {
               height="100%"
             />
           </div>
-        </div>{" "}
+        </div>
       </div>
       <div className="row">
         <div className="col-12">
