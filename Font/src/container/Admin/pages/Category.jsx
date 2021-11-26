@@ -118,7 +118,7 @@ export default function Categorys() {
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <lable>CategoryImage</lable>
                   <input
                     type="file"
@@ -126,7 +126,7 @@ export default function Categorys() {
                     name="food_img"
                     accept=".png,.jpg"
                   ></input>
-                </div>
+                </div> */}
                 <div className="row">
                   <div className="col-12">
                     <button

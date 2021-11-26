@@ -159,7 +159,7 @@ const Foods = () => {
                     onChange={handleInputChange}
                   ></input>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <lable>FoodImage</lable>
                   <input
                     type="file"
@@ -167,7 +167,7 @@ const Foods = () => {
                     name="food_img"
                     accept=".pnd,.jpg"
                   ></input>
-                </div>
+                </div> */}
                 <div className="form-group">
                   <lable>Giá</lable>
                   <input

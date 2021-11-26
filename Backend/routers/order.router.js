@@ -14,22 +14,22 @@ orderRouter.post("/order", authenticate, ordering);
 orderRouter.get("/list/:id", authenticate, viewOrderByCustomer);
 orderRouter.get(
   "/listallorder",
-  // authenticate,
+  authenticate,
   viewListOrder
 );
 orderRouter.get(
   "/listallordertoday",
-  // authenticate,
+  authenticate,
   viewListOrderToday
 );
 orderRouter.get(
   "/listallorderbydate/:id",
-  // authenticate,
+  authenticate,
   viewListOrderByDate
 );
 orderRouter.get(
   "/listallorderbymonth",
-  // authenticate,
+  authenticate,
   viewListOrderByMonth
 );
 export { orderRouter };

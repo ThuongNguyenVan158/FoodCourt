@@ -102,6 +102,9 @@ const Foods = () => {
         },
       }
     );
+    alert("Cập nhật thành công")
+    setFile();
+    history.push("/admin/foods")
   };
   useEffect(() => {
     loadnewFood();

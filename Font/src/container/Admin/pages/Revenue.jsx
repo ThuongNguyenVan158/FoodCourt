@@ -109,7 +109,7 @@ const Revenue = () => {
   });
   const fetRevenue = async () => {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/analyst/totalByDate"
+      "http://localhost:5000/api/v1/analyst/totalByDate",
     );
     ditgitRevenues.forEach((revenue, index) => {
       revenue.count = res.data[index].count;
@@ -124,7 +124,12 @@ const Revenue = () => {
   const fetchListBillToday = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/order/listallordertoday`
+        `http://localhost:5000/api/v1/order/listallordertoday`,
+        {
+          headers: {
+            token: JSON.parse(localStorage.getItem("admin")).token,
+          },
+        }
       );
       setListBillToday(res.data);
     } catch (error) {
@@ -139,7 +144,12 @@ const Revenue = () => {
   const fetchListbyDate = async (e) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/order/listallorderbydate/${day.date}`
+        `http://localhost:5000/api/v1/order/listallorderbydate/${day.date}`,
+        {
+          headers: {
+            token: JSON.parse(localStorage.getItem("admin")).token,
+          },
+        }
       );
       setListBillOfDate(res.data);
       setDay({ date: "" });
@@ -153,7 +163,12 @@ const Revenue = () => {
   const fetchListBillMonth = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/order/listallorderbymonth`
+        `http://localhost:5000/api/v1/order/listallorderbymonth`,
+        {
+          headers: {
+            token: JSON.parse(localStorage.getItem("admin")).token,
+          },
+        }
       );
       setListBillOfDate(res.data);
       console.log(res.data);
