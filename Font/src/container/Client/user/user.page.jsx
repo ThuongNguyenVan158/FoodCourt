@@ -77,7 +77,7 @@ function UserPage() {
 
   const handleUpdate = async (e) => {
     try {
-      const result = await axios.put( `http://localhost:5000/api/v1/customer/updatecus/${data.userInfo.id}`, newData,{
+      const result = await axios.put( `https://project1952001.herokuapp.com/api/v1/customer/updatecus/${data.userInfo.id}`, newData,{
           headers: {
             token: JSON.parse(localStorage.getItem('user')).token,
           },
@@ -118,7 +118,7 @@ function UserPage() {
     try {
       console.log('1');
       console.log(pass);
-      const result = await axios.put(`http://localhost:5000/api/v1/customer/changePwd/${data.userInfo.id}`, pass, {
+      const result = await axios.put(`https://project1952001.herokuapp.com/api/v1/customer/changePwd/${data.userInfo.id}`, pass, {
         headers: {
           token: JSON.parse(localStorage.getItem('user')).token,
         },
@@ -134,7 +134,7 @@ function UserPage() {
 
   const getOrders = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/api/v1/order/list/${data.userInfo.id}`, {
+      const result = await axios.get(`https://project1952001.herokuapp.com/api/v1/order/list/${data.userInfo.id}`, {
         headers: {
           token: JSON.parse(localStorage.getItem('user')).token,
         }
