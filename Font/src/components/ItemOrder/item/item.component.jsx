@@ -24,7 +24,7 @@ function Item(props) {
   const getFoodDetail = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/api/v1/food/detail/${item.food_id}`
+        `https://project1952001.herokuapp.com/api/v1/food/detail/${item.food_id}`
       );
       setFood(result.data);
       console.log(result.data);

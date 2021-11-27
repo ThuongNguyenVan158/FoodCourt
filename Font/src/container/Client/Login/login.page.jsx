@@ -47,7 +47,7 @@ function SignIn() {
     e.preventDefault();
     try {
       const result = await axios.post(
-        "http://localhost:5000/api/v1/customer/login",
+        "https://project1952001.herokuapp.com/api/v1/customer/login",
         login
       );
       if (result.data) {
@@ -89,7 +89,7 @@ function SignIn() {
     }
     try {
       const result = await axios.post(
-        "http://localhost:5000/api/v1/customer/register",
+        "https://project1952001.herokuapp.com/api/v1/customer/register",
         signUp
       );
       alert("Đăng ký thành công!");
