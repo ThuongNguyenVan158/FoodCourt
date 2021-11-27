@@ -18,7 +18,13 @@
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Satisfy&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://www.paypal.com/sdk/js?client-id=AZ1dsnQloJLkynnU6b4hDLtixIjQFNl6C1zeVa_1xXcphnqZBiQwzTWyaJDSwW20Iw62_LlCAwCCDUtw"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -73,9 +79,9 @@
     <script>
       $(function () {
         $(document).scroll(function () {
-          var $nav = $('#mainNavbar');
+          var $nav = $("#mainNavbar");
           $nav.toggleClass(
-            'header__scrolled',
+            "header__scrolled",
             $(this).scrollTop() > $nav.height()
           );
         });

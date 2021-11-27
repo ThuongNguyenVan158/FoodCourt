@@ -22,13 +22,13 @@ foodRouter.post(
   addFood
 );
 foodRouter.get("/detail/:id", getDetailFood);
-foodRouter.get("/getListFoodbyName", getListFoodbyName);
+foodRouter.post("/getListFoodbyName", getListFoodbyName);
 foodRouter.get("/getListFoodByType", getListFoodByType);
 foodRouter.get("/getListFoodByPriceASC", getListFoodByPriceASC);
 foodRouter.get("/getListFoodByPriceDESC", getListFoodByPriceDESC);
 foodRouter.get("/getListFood", getallfoodAsync);
 foodRouter.put(
-  "updateFood/:id",
+  "/updateFood/:id",
   authenticate,
   authorizeUser(["admin", "superAdmin"]),
   updateFood

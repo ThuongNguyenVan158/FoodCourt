@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStyles } from "./user.style.page";
 import { Container } from "@mui/material";
 
@@ -7,7 +7,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { RadioGroup, FormControlLabel, Radio, Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import axios from 'axios';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setLoginAction } from './../../../redux/Reducers/loginUser';
+import ItemOrder from "../../../components/ItemOrder/ItemOrder.component";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,12 +49,110 @@ function a11yProps(index) {
 
 function UserPage() {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const data = useSelector(state => state.loginUser);
+
+  const [newData, setNewData] = React.useState({
+    createAt: '',
+    email: data.userInfo.email,
+    id: data.userInfo.id,
+    name: data.userInfo.name,
+    password: '',
+    phone: data.userInfo.phone,
+    updateAt: '',
+    username: data.userInfo.username,
+  });
+
+  const handleChangeUserInfo = (e) => {
+    const { name, value} = e.target;
+    setNewData({...newData, [name]: value});
+  }
+
+  const handleUpdate = async (e) => {
+    try {
+      const result = await axios.put( `https://project1952001.herokuapp.com/api/v1/customer/updatecus/${data.userInfo.id}`, newData,{
+          headers: {
+            token: JSON.parse(localStorage.getItem('user')).token,
+          },
+        },
+      );
+      alert('Cập nhật thành công!');
+      const payload = {
+        isLogin: true,
+        userInfo: {
+          email: newData.email,
+          id: data.userInfo.id,
+          name: newData.name,
+          phone: newData.phone,
+          username: newData.username,
+        },
+      }
+      const local = JSON.parse(localStorage.getItem('user'));
+      local.customer = payload.userInfo;
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(local));
+      dispatch(setLoginAction(payload));
+    } catch (err) {
+      alert("Cập nhật thông tin không thành công!");
+    }
+  }
+
+  const [pass, setPass] = React.useState({
+    password: '',
+  })
+
+  const handleChangePass = (e) => {
+    const { name, value } = e.target;
+    setPass({...pass, [name]: value});
+  }
+
+  const handleUpdatePass = async (e) => {
+    if (pass.password !== document.getElementById('cfpass').value)
+    {
+      alert("Mật khẩu không khớp!");
+      return;
+    }
+    try {
+      console.log('1');
+      console.log(pass);
+      const result = await axios.put(`https://project1952001.herokuapp.com/api/v1/customer/changePwd/${data.userInfo.id}`, pass, {
+        headers: {
+          token: JSON.parse(localStorage.getItem('user')).token,
+        },
+      })
+      console.log(result.data);
+      alert("Thay đổi mật khẩu thành công!");
+    } catch (err) {
+      alert("Thay đổi mật khẩu không thành công!")
+    }
+  }
+
+  const [orders, setOrders] = useState([]);
+
+  const getOrders = async () => {
+    try {
+      const result = await axios.get(`https://project1952001.herokuapp.com/api/v1/order/list/${data.userInfo.id}`, {
+        headers: {
+          token: JSON.parse(localStorage.getItem('user')).token,
+        }
+      })
+      setOrders(result.data[0].Orders);
+    }
+    catch (error) {}
+  }
+
+  useEffect(() => {
+    getOrders();
+  }, [])
+
+  console.log(orders);
 
   return (
     <div className={classes.root}>
@@ -63,10 +166,10 @@ function UserPage() {
                   <div className={classes.avt}></div>
                 </div>
                 <div>
-                  <h5>Nguyen Van Minh</h5>
+                  <h5>{data.userInfo.name}</h5>
                 </div>
                 <div>
-                  <p>nguyenminh@gmail.com</p>
+                  <p>{data.userInfo.email}</p>
                 </div>
                 <div className={classes.boxTabs}>
                   <Box>
@@ -80,6 +183,7 @@ function UserPage() {
                     >
                       <Tab label="Thông Tin Tài Khoản" {...a11yProps(0)} />
                       <Tab label="Đổi Mật Khẩu" {...a11yProps(1)} />
+                      <Tab label="Lịch sử mua hàng" {...a11yProps(2)} />
                     </Tabs>
                   </Box>
                 </div>
@@ -94,10 +198,29 @@ function UserPage() {
                       <h3>THÔNG TIN TÀI KHOẢN</h3>
                       <div className={classes.item}>
                         <div className={classes.leftitem}>
+                          <p>Email</p>
+                        </div>
+                        <div className={classes.rightitem}>
+                          <input
+                            onChange={handleChangeUserInfo}
+                            type="email"
+                            name="email"
+                            placeholder={data.userInfo.email}
+                          ></input>
+                        </div>
+                      </div>
+
+                      <div className={classes.item}>
+                        <div className={classes.leftitem}>
                           <p>Tên đăng nhập</p>
                         </div>
                         <div className={classes.rightitem}>
-                          <p>nguyenvanminh</p>
+                          <input
+                            onChange={handleChangeUserInfo}
+                            type="text"
+                            name="username"
+                            placeholder={data.userInfo.username}
+                          ></input>
                         </div>
                       </div>
 
@@ -107,9 +230,10 @@ function UserPage() {
                         </div>
                         <div className={classes.rightitem}>
                           <input
+                            onChange={handleChangeUserInfo}
                             type="text"
                             name="name"
-                            placeholder="Nguyễn Văn Minh"
+                            placeholder={data.userInfo.name}
                           ></input>
                         </div>
                       </div>
@@ -120,62 +244,11 @@ function UserPage() {
                         </div>
                         <div className={classes.rightitem}>
                           <input
-                            type="phone"
+                            onChange={handleChangeUserInfo}
+                            type="tel"
                             name="phone"
-                            placeholder="0166 666 666"
+                            placeholder={data.userInfo.phone}
                           ></input>
-                        </div>
-                      </div>
-
-                      <div className={classes.item}>
-                        <div className={classes.leftitem}>
-                          <p>Email</p>
-                        </div>
-                        <div className={classes.rightitem}>
-                          <input
-                            type="email"
-                            name="email"
-                            placeholder="nguyenminh@gmail.com"
-                          ></input>
-                        </div>
-                      </div>
-
-                      <div className={classes.item}>
-                        <div className={classes.leftitem}>
-                          <p>Ngày sinh</p>
-                        </div>
-                        <div className={classes.rightitem}>
-                          <input
-                            type="date"
-                            name="date"
-                            value="02/05/2001"
-                          ></input>
-                        </div>
-                      </div>
-
-                      <div className={classes.item}>
-                        <div className={classes.leftitem}>
-                          <p>Giới tính</p>
-                        </div>
-                        <div className={classes.rightitem}>
-                          <RadioGroup
-                            aria-label="gender"
-                            defaultValue="female"
-                            name="sex"
-                          >
-                            <div className={classes.radio}>
-                              <FormControlLabel
-                                value="female"
-                                control={<Radio />}
-                                label="Nữ"
-                              />
-                              <FormControlLabel
-                                value="male"
-                                control={<Radio />}
-                                label="Nam"
-                              />
-                            </div>
-                          </RadioGroup>
                         </div>
                       </div>
 
@@ -184,7 +257,7 @@ function UserPage() {
                           <p></p>
                         </div>
                         <div className={classes.rightitem}>
-                          <Button variant="contained" type="submit">
+                          <Button onClick={handleUpdate} variant="contained">
                             Cập Nhật
                           </Button>
                         </div>
@@ -196,18 +269,6 @@ function UserPage() {
                   <div className={classes.mainBox}>
                     <form autoComplete="off">
                       <h3>ĐỔI MẬT KHẨU</h3>
-                      <div className={classes.item}>
-                        <div className={classes.leftitem}>
-                          <p>Mật khẩu cũ</p>
-                        </div>
-                        <div className={classes.rightitem}>
-                          <input
-                            type="password"
-                            name="oldpass"
-                            placeholder=""
-                          ></input>
-                        </div>
-                      </div>
 
                       <div className={classes.item}>
                         <div className={classes.leftitem}>
@@ -215,8 +276,9 @@ function UserPage() {
                         </div>
                         <div className={classes.rightitem}>
                           <input
+                            onChange={handleChangePass}
                             type="password"
-                            name="newpass"
+                            name="password"
                             placeholder=""
                           ></input>
                         </div>
@@ -229,7 +291,7 @@ function UserPage() {
                         <div className={classes.rightitem}>
                           <input
                             type="password"
-                            name="newpass"
+                            id="cfpass"
                             placeholder=""
                           ></input>
                         </div>
@@ -240,12 +302,49 @@ function UserPage() {
                           <p></p>
                         </div>
                         <div className={classes.rightitem}>
-                          <Button variant="contained" type="submit">
+                          <Button onClick={handleUpdatePass} variant="contained">
                             Cập Nhật
                           </Button>
                         </div>
                       </div>
                     </form>
+                  </div>
+                </TabPanel>
+
+                <TabPanel value={value} index={2}>
+                  <div className={classes.mainBox}>
+                    <h3>LỊCH SỬ MUA HÀNG</h3>
+
+                    <div className={classes.listorder}>
+                      <div className={classes.headerorder}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={1}>
+                            ID
+                          </Grid>
+                          <Grid item xs={3}>
+                            Ngày thanh toán
+                          </Grid>
+                          <Grid item xs={3}>
+                            Tổng tiền thanh toán
+                          </Grid>
+                          <Grid item xs={4}>
+                            Phương thức thanh toán
+                          </Grid>
+                        </Grid>
+                      </div>
+                      
+                      {
+                        orders.map((order, index) => {
+                          return (
+                            <div key={index}>
+                              <ItemOrder order={order}/>
+                            </div>
+                          )
+                        }, '')
+                      }
+
+                    </div>
+
                   </div>
                 </TabPanel>
               </div>

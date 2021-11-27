@@ -1,23 +1,36 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import logo from '../../assets/images/foodcourt_infologo.png'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import logo from "../../assets/images/foodcourt_infologo.png";
 
-import './HeaderClient.scss';
+import "./HeaderClient.scss";
+
+import { useHistory } from "react-router-dom";
+import { Button } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { delLoginAction } from "./../../redux/Reducers/loginUser";
 
 function HeaderClient() {
   const number = useSelector((state) => state.todoCart.number);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.loginUser);
+
+  const handleLogout = (e) => {
+    alert("Đăng xuất thành công!");
+    localStorage.removeItem("user");
+    dispatch(delLoginAction());
+    history.push("/");
+  };
+
   return (
     <nav class="navbar fixed-top navbar-expand-lg header" id="mainNavbar">
       <div class="container-fluid d-flex order-lg-1">
         <div className="header__logo">
           <Link to="/">
-            <img
-              src={logo}
-              alt
-            />
+            <img src={logo} alt />
           </Link>
         </div>
         <div className="header__ctn order-lg-3">
@@ -36,11 +49,21 @@ function HeaderClient() {
             </Link>
           </div>
           <div>
-            <Link to="/login" className="link">
+            <Link to={user.isLogin ? "/user" : "/login"} className="link">
               <i className="fa fa-user" />
-              Đăng nhập
+              {user.isLogin ? user.userInfo.username : "Đăng nhập"}
             </Link>
           </div>
+
+          {user.isLogin ? (
+            <div className="header__logout" title="Đăng xuất">
+              <Button type="submit" onClick={handleLogout}>
+                <LogoutIcon />
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <button
           class="navbar-toggler header__btn"

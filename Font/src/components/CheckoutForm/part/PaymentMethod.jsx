@@ -5,7 +5,7 @@ import './PaymentMethod.scss';
 
 function PaymentMethod(props) {
   const dispatch = useDispatch();
-  const [method, setMethod] = useState('cardpayment');
+  const [method, setMethod] = useState('momo');
   const handleChangeMethod = (e) => {
     dispatch(changePaymentMethod(e.target.id));
     setMethod(e.target.id);
@@ -23,6 +23,7 @@ function PaymentMethod(props) {
               name="payment-method"
               id="momo"
               value={method}
+              checked={method === 'momo'}
               onChange={handleChangeMethod}
             />
             <label htmlFor="momo">
@@ -42,6 +43,7 @@ function PaymentMethod(props) {
               name="payment-method"
               id="zalopay"
               value={method}
+              checked={method === 'zalopay'}
               onChange={handleChangeMethod}
             />
             <label htmlFor="zalopay">
@@ -61,6 +63,7 @@ function PaymentMethod(props) {
               name="payment-method"
               id="shopeepay"
               value={method}
+              checked={method === 'shopeepay'}
               onChange={handleChangeMethod}
             />
             <label htmlFor="shopeepay">
@@ -78,20 +81,21 @@ function PaymentMethod(props) {
             <input
               type="radio"
               name="payment-method"
-              id="cardpayment"
+              id="paypal"
               value={method}
+              checked={method === 'paypal'}
               onChange={handleChangeMethod}
             />
-            <label htmlFor="cardpayment">
+            <label htmlFor="paypal">
               <div className="d-inline-block" style={{ width: 45 }}>
                 <img
-                  src="https://timo.vn/wp-content/uploads/card-1673581_1280.png"
-                  alt="zalo-pay-icon"
+                  src="https://timo.vn/wp-content/uploads/paypal-784404_1280.png"
+                  alt="paypal-pay-icon"
                   height="25px"
                   width="40px"
                 />
               </div>
-              Thẻ ngân hàng
+              Paypal
             </label>
           </div>
         </div>
