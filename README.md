@@ -25,4 +25,5 @@ giỏ hàng, thanh toán)
 - Chart
 
 ### Khởi chạy trang web
-Ta vào địa chỉ https://font-end-project.herokuapp.com và đăng nhập với tên đăng nhập **admin** và mật khẩu là **admin**. Lúc này ta đã có thể sử dụng được trang web **Quản lý khu ẩm thực L06 Nhóm X**.
+Ta vào địa chỉ https://font-end-project.herokuapp.com có thể sử dụng trang web **Quản lý khu ẩm thực L06 Nhóm X**.
+Để sử dụng được các tính năng của admin, ta truy cập cào địa chỉ https://font-end-project.herokuapp.com/admin và đăng nhập với tên đăng nhập **admin123@gmail.com** và mật khẩu là **1234**. 
