@@ -1,4 +1,4 @@
-# Quản lý khu ẩm thực của trường Đại học x : 
+# Quản lý khu ẩm thực của trường Đại học X : 
 ## Giới thiệu đề tài
 Website "Quản lý khu ẩm thực L06 Nhóm X" là trang web hỗ trợ quản
 lý cho khu ẩm thực của trường đại học X với các chức năng như:
